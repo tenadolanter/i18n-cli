@@ -1,0 +1,62 @@
+{
+  "name": "@tenado/i18n",
+  "version": "1.0.0",
+  "description": "脚本实现自动国际化",
+  "keywords": [
+    "i18n",
+    "vue",
+    "auto"
+  ],
+  "files": [
+    "bin",
+    "src"
+  ],
+  "bin": {
+    "i18n-cli": "bin/i18n-cli"
+  },
+  "scripts": {
+    "init": "node ./bin/i18n-cli init",
+    "build": "node ./bin/i18n-cli sync"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tenadolanter/i18n.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tenadolanter/i18n/issues"
+  },
+  "homepage": "https://github.com/tenadolanter/i18n#readme",
+  "dependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/generator": "^7.22.5",
+    "@babel/helper-plugin-utils": "^7.22.5",
+    "@babel/parser": "^7.22.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/plugin-syntax-async-generators": "^7.8.4",
+    "@babel/plugin-syntax-class-properties": "^7.12.13",
+    "@babel/plugin-syntax-decorators": "^7.22.5",
+    "@babel/plugin-syntax-do-expressions": "^7.22.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-syntax-function-bind": "^7.22.5",
+    "@babel/plugin-syntax-jsx": "^7.22.5",
+    "@babel/plugin-syntax-object-rest-spread": "^7.8.3",
+    "@babel/preset-typescript": "^7.22.5",
+    "@babel/traverse": "^7.22.5",
+    "@babel/types": "^7.22.5",
+    "chalk": "^4.1.2",
+    "commander": "^10.0.1",
+    "glob": "^10.2.7",
+    "htmlparser2": "^9.0.0",
+    "http-errors": "^2.0.0",
+    "inquirer": "^6.5.2",
+    "limax": "^4.1.0",
+    "md5": "^2.3.0",
+    "mustache": "^4.2.0",
+    "nanoid": "^3.3.6",
+    "node-fetch": "^2.6.12",
+    "parse5": "^5.1.1",
+    "prettier": "^2.8.8"
+  }
+}
