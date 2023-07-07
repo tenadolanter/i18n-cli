@@ -1,8 +1,8 @@
 module.exports = {
-  entry: ['example/vue-test'],
+  entry: ['example/vue-ignore-method'],
   exclude: [],
   local: 'zh-CN',
-  localPath: './example/vue-test/locales',
+  localPath: './example/vue-ignore-method/locales',
   langs: ['en-US'],
   keyRule: '',
   i18nImport: "import { i18n } from 'i18n';",
@@ -15,4 +15,6 @@ module.exports = {
     secretKey: 'd4C2LAfNchZhlFKV2b1k',
     interval: 1000,
   },
+  ignoreText: "i18n-disable",
+  ignoreMethods: ['console.log'],
 };

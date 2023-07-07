@@ -64,7 +64,7 @@ module.exports = (localData, needTranslate, file, options) => {
             code = transformJs(localData, needTranslate, '', fullText, options, false);
           }
           html += openTagFunc(name, lastAttrs);
-          html += `\n${code}`;
+          html += `\n${code}\n`;
           html += closeTagFun(name);
         }
         lastIndex = null

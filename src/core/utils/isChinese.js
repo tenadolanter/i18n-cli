@@ -1,4 +1,5 @@
 // 判断是否为中文
+const regex = require("./regex.js")
 module.exports = (text) => {
-  return /[\u4e00-\u9fa5]/.test(text);
+  return regex.chineseChar.test(text);
 }

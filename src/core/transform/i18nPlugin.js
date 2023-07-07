@@ -1,11 +1,12 @@
 
 const { declare } = require("@babel/helper-plugin-utils");
+const generate = require('@babel/generator').default;
 const isChinese = require("../utils/isChinese.js")
 const generateKey = require("../utils/generateKey.js")
 module.exports =  declare((api, options) => {
   api.assertVersion(7);
   const { localData, needTranslate, isVue } = options;
-  const { i18nObject, i18nImport, i18nMethod, needImport = true } = options.options;
+  const { i18nObject, i18nImport, i18nMethod, needImport = true, ignoreText, ignoreMethods } = options.options;
   const replaceExp = (api, path, value) => {
     const expressionParams = path.isTemplateLiteral()
       ? path.node.expressions.map((item) => generate(item).code)
@@ -43,13 +44,13 @@ module.exports =  declare((api, options) => {
               }
             },
           });
-          // 如果注释包含i18n-disable，则不转换
+          // 如果注释包含ignoreText，则不转换
           path.traverse({
             "StringLiteral|TemplateLiteral"(path) {
               if (path.node.leadingComments) {
                 path.node.leadingComments = path.node.leadingComments.filter(
                   (comment, index) => {
-                    if (comment.value.includes("i18n-disable")) {
+                    if (comment.value.includes(ignoreText)) {
                       path.node.skipTransform = true;
                       return false;
                     }
@@ -124,10 +125,19 @@ module.exports =  declare((api, options) => {
         if (path.node.skipTransform) return;
         const { type, name, object = {}, property = {} } = path.node.callee ?? {}
         const methodName = isVue ? `$${i18nMethod}` : i18nMethod
+        // 如果是已经翻译的
         if(type === 'Identifier' && name === methodName){
           path.skip();
         }
         if(type === 'MemberExpression' && object.name === i18nObject && property.name === methodName) {
+          path.skip();
+        }
+        // 如果包含忽略的方法名
+        if(type === 'Identifier' && ignoreMethods.includes(name)) {
+          path.skip();
+        }
+        const _MemberExpression = `${object.name}.${property.name}`
+        if(type === 'MemberExpression' && ignoreMethods.includes(_MemberExpression)) {
           path.skip();
         }
       },

@@ -6,6 +6,7 @@ const mustache = require('mustache');
 const chalk = require("chalk");
 const isChinese = require("../utils/isChinese.js")
 const generateKey = require("../utils/generateKey.js")
+const regex = require("../utils/regex.js")
 const transformJs = require("./transformJs.js");
 module.exports = (
   localData,
@@ -16,35 +17,55 @@ module.exports = (
   isWritingFile = true,
   isVue = false,
 ) => {
-  const { vueTemplateLabelPrefix } = options ?? {};
+  const { vueTemplateLabelPrefix, ignoreText } = options ?? {};
   const treeAdapter = {
     ...treeAdapterDefault,
   }
+  // 需要忽略的行
+  let ignoreLines = []
   // 保存映射，在处理完之后替换回来
   let keysMap = {};
   // 将大写字符转换为小写
   const toKebab = (sourceCode) => {
-    const reg = new RegExp(`(<\/?)([A-Z][a-zA-Z0-9-]*)`, 'g');
-    sourceCode = sourceCode.replaceAll(reg, (_, $1, $2) => {
+    // 如果标签是大写，则替换并缓存
+    sourceCode = sourceCode.replaceAll(regex.htmlTagWidthUppercaseChar, (_, $1, $2) => {
       const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}`
       keysMap[temp] = $2;
       return `${$1}${temp}`
     })
+    sourceCode = sourceCode.replaceAll(regex.htmlAttributeWidthUppercaseChar, ($1) => {
+      const temp = `${vueTemplateLabelPrefix}${$1.toLowerCase()}`
+      keysMap[temp] = $1;
+      return `${temp}`
+    })
+    // 如果属性是大写，则特换并缓存
     return sourceCode;
   }
+  // 将自闭和标签替换为成对的标签
+  const toAutoColse = (sourceCode) => {
+    sourceCode = sourceCode.replaceAll(regex.htmlAutoCloseTag, ($1, $2) => {
+      const replaceStr = $1.replace('/>', '>')
+      return `${replaceStr}</${$2}>`
+    })
+    return sourceCode;
+  }
+
   // 替换之前转换的标签
   const toPascal = (sourceCode) => {
     Object.keys(keysMap).forEach(i => {
-      const reg = new RegExp(`(<\/?)(${i})`, 'g');
-      sourceCode = sourceCode.replaceAll(reg, (_, $1, $2) => {
-        const temp = keysMap[$2] || $2;
-        return `${$1}${temp}`
+      const reg = new RegExp(`${i}`, 'g');
+      sourceCode = sourceCode.replaceAll(reg, ($1) => {
+        const temp = keysMap[$1] || $1;
+        return `${temp}`
       })
     })
     return sourceCode;
   }
 
-  const ast = parse5.parse(toKebab(sourceCode), { sourceCodeLocationInfo: true, treeAdapter: treeAdapter });
+  sourceCode = toKebab(sourceCode);
+  sourceCode = toAutoColse(sourceCode);
+
+  const ast = parse5.parse(sourceCode, { sourceCodeLocationInfo: true, treeAdapter: treeAdapter });
 
   // 转换html内容
   const traverseHtml = (ast, localData, needTranslate, options) => {
@@ -68,6 +89,8 @@ module.exports = (
       }
       // 处理属性
       if(node.attrs) {
+        const startLine = node.sourceCodeLocation?.startLine;
+        if(ignoreLines.includes(startLine)) return;
         node.attrs.forEach(attr => {
           const { name, value } = attr;
           if(!isChinese(value) || !value) return;
@@ -91,6 +114,8 @@ module.exports = (
       if(node.nodeName === '#text') {
         const nodeValue = node.value;
         if(!isChinese(nodeValue) || !nodeValue) return;
+        const startLine = node.sourceCodeLocation.startLine;
+        if(ignoreLines.includes(startLine)) return;
         let value = "";
         let tokens = mustache.parse(node.value) || [];
         // tokens格式[['text', '中文', 0, 2]]
@@ -120,6 +145,13 @@ module.exports = (
         }
         if (node.value !== value) {
           node.value = value;
+        }
+      }
+      // 获取所有
+      if(node.nodeName === "#comment") {
+        if(node.data.includes(ignoreText)) {
+          const endLine = node?.sourceCodeLocation?.endLine;
+          ignoreLines.push(endLine + 1);
         }
       }
     }
