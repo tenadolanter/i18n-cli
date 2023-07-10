@@ -35,6 +35,8 @@ npx i18n-cli sync
 | i18nImport          | String | 引入 i18n                                 | import { i18n } from 'i18n'; |
 | i18nObject          | String | i18n 对象                                 | i18n                         |
 | i18nMethod          | String | i18n 方法                                 | t                            |
+| ignoreText          | String | 注释对应的文本                              | i18n-disable                            |
+| ignoreMethods       | Array  | 需要被忽略的方法，例如console                | []                            |
 | translate           | Object | 翻译相关配置                              | -                            |
 | translate.type      | String | 翻译的类型，baidu、google                 | -                            |
 | translate.appId     | String | 翻译 appId                                | -                            |
@@ -59,8 +61,14 @@ npx i18n-cli sync
 
 - ~~自闭和标签的解析，例如`<Toast />`~~
 
-- disabled-i18n添加
-
 - ~~console.log不需要翻译~~
 
 - ~~添加测试脚本~~
+
+- ~~添加自动发布脚本~~
+
+- disabled-i18n添加
+
+- template解析报错
+
+- v-tooltip.top解析报错

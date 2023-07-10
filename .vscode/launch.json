@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "npm run build",
+      "command": "npm run sync",
       "name": "Run npm start",
       "request": "launch",
       "type": "node-terminal"

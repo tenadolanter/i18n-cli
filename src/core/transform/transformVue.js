@@ -6,6 +6,7 @@ const { Parser } = require("htmlparser2");
 const transformHtml = require("./transformHtml.js");
 const transformJs = require("./transformJs.js");
 const transformTs = require("./transformTs.js");
+const regex = require("../utils/regex.js")
 module.exports = (localData, needTranslate, file, options) => {
   const filePath = file.filePath;
   const sourceCode = fs.readFileSync(path.join(cwd, filePath), {
@@ -51,10 +52,18 @@ module.exports = (localData, needTranslate, file, options) => {
       } else {
         const fullText = sourceCode.slice(lastIndex, parser.startIndex);
         if(name === "template") {
-          const code = transformHtml(localData, needTranslate, '', fullText, options, false, true);
-          html += openTagFunc(name, lastAttrs);
-          html += `\n  ${code}`;
-          html += closeTagFun(name);
+          // 如果template是0或偶数个，则说明匹配结束
+          const matchs = fullText.match(regex.htmlTemplateTag) ?? [];
+          const matchLen = matchs?.length;
+          if(matchLen === 0 || matchLen%2 === 0) {
+            const code = transformHtml(localData, needTranslate, '', fullText, options, false, true);
+            html += openTagFunc(name, lastAttrs);
+            html += `\n  ${code}`;
+            html += closeTagFun(name);
+          } else {
+            if(lastIndex != null) return;
+            html += closeTagFun(name);
+          }
         }
         else if(name === "script") {
           let code = "";

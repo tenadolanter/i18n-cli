@@ -2,6 +2,7 @@ const fs = require("fs");
 const parse5 = require("parse5");
 const treeAdapterDefault = require("parse5/lib/tree-adapters/default");
 const Serializer = require("parse5/lib/serializer");
+const { NAMESPACES: NS } = require('parse5/lib/common/html');
 const mustache = require('mustache');
 const chalk = require("chalk");
 const isChinese = require("../utils/isChinese.js")
@@ -17,7 +18,7 @@ module.exports = (
   isWritingFile = true,
   isVue = false,
 ) => {
-  const { vueTemplateLabelPrefix, ignoreText } = options ?? {};
+  const { vueTemplateLabelPrefix, ignoreText, ignoreAttributes } = options ?? {};
   const treeAdapter = {
     ...treeAdapterDefault,
   }
@@ -49,6 +50,15 @@ module.exports = (
     })
     return sourceCode;
   }
+  // 将代码里的template转换
+  const toTempalte = (sourceCode) => {
+    sourceCode = sourceCode.replaceAll(regex.htmlTemplateTag, (_, $1, $2) => {
+      const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}`
+      keysMap[temp] = $2;
+      return `${$1}${temp}`
+    })
+    return sourceCode;
+  }
 
   // 替换之前转换的标签
   const toPascal = (sourceCode) => {
@@ -64,6 +74,7 @@ module.exports = (
 
   sourceCode = toKebab(sourceCode);
   sourceCode = toAutoColse(sourceCode);
+  sourceCode = toTempalte(sourceCode);
 
   const ast = parse5.parse(sourceCode, { sourceCodeLocationInfo: true, treeAdapter: treeAdapter });
 
@@ -94,8 +105,12 @@ module.exports = (
         node.attrs.forEach(attr => {
           const { name, value } = attr;
           if(!isChinese(value) || !value) return;
+          if(ignoreAttributes.includes(name)) {
+            const source = value;
+            attr.value = source;
+          }
           // 如果指令、绑定、事件
-          if (name.startsWith('v-') || name.startsWith(':') || name.startsWith('@')) {
+          else if (name.startsWith('v-') || name.startsWith(':') || name.startsWith('@')) {
             const source = transformJsExp(value);
             if(value !== source) {
               attr.value = source;

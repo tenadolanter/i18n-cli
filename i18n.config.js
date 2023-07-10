@@ -1,8 +1,8 @@
 module.exports = {
-  entry: ['example/vue-ignore-method'],
+  entry: ['example/vue-transform-tooltip'],
   exclude: [],
   local: 'zh-CN',
-  localPath: './example/vue-ignore-method/locales',
+  localPath: './example/vue-transform-tooltip/locales',
   langs: ['en-US'],
   keyRule: '',
   i18nImport: "import { i18n } from 'i18n';",

@@ -1,6 +1,6 @@
 {
   "name": "@tenado/i18n",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "脚本实现自动国际化",
   "keywords": [
     "i18n",
@@ -16,7 +16,7 @@
   },
   "scripts": {
     "init": "node ./bin/i18n-cli init",
-    "build": "node ./bin/i18n-cli sync",
+    "sync": "node ./bin/i18n-cli sync",
     "test": "mocha --recursive"
   },
   "repository": {

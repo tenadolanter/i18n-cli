@@ -15,4 +15,5 @@ module.exports =  {
   translate: null,
   ignoreText: "i18n-disable",
   ignoreMethods: [],
+  ignoreAttributes: ['style', 'class', 'script'],
 }
