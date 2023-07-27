@@ -85,7 +85,7 @@ module.exports = (localData, needTranslate, file, options) => {
       html += fullText;
     },
   },{
-    xmlMode: true,
+    xmlMode: false,
     lowerCaseTags: false,
     lowerCaseAttributeNames: false,
     recognizeSelfClosing: true,
