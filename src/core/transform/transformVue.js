@@ -68,9 +68,9 @@ module.exports = (localData, needTranslate, file, options) => {
         else if(name === "script") {
           let code = "";
           if(lastAttrs.lang === "ts") {
-            code = transformTs(localData, needTranslate, '', fullText, options, false);
+            code = transformTs(localData, needTranslate, '', fullText, options, false, true);
           } else {
-            code = transformJs(localData, needTranslate, '', fullText, options, false);
+            code = transformJs(localData, needTranslate, '', fullText, options, false, true);
           }
           html += openTagFunc(name, lastAttrs);
           html += `\n${code}\n`;
