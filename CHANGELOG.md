@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.2.0 (2023-07-27)
+
+
+### Features
+
+* 初始化项目 ([922a89d](https://github.com/tenadolanter/i18n-cli/commit/922a89dfab48f0d826fe01e987ddd48a5ce80db3))
+
 ## 1.1.0 (2023-07-26)
 
 
