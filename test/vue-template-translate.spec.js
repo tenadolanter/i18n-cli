@@ -8,7 +8,8 @@ describe("vue的template里的翻译", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = `<Test :name="$t('ce-shi')"></Test>`;
     assert.equal(sourceCode, resultCode);
   })
@@ -17,7 +18,8 @@ describe("vue的template里的翻译", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = `<Test>{{$t('ce-shi')}}</Test>`;
     assert.equal(sourceCode, resultCode);
   })
@@ -26,7 +28,8 @@ describe("vue的template里的翻译", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = `<Test :name="$t('ce-shi')">{{$t('ce-shi')}}</Test>`;
     assert.equal(sourceCode, resultCode);
   })
@@ -35,7 +38,8 @@ describe("vue的template里的翻译", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = `<div class="empty-data">\n    <template>\n      <div class="empty-image-wrap">\n        <img class="empty-image" :src="emptyImage">\n      </div>\n      <div class="empty-title">{{$t('zan-wu-shu-ju')}}</div>\n    </template>\n  </div>\n`;
     assert.equal(sourceCode, resultCode);
   })

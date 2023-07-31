@@ -8,7 +8,8 @@ describe("html大写属性", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<Test name="test"></Test>';
     assert.equal(sourceCode, resultCode);
   })
@@ -17,7 +18,8 @@ describe("html大写属性", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<Test Name="test"></Test>';
     assert.equal(sourceCode, resultCode);
   })
@@ -26,7 +28,8 @@ describe("html大写属性", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<Test Name="test" sex="nan"></Test>';
     assert.equal(sourceCode, resultCode);
   })
@@ -35,7 +38,8 @@ describe("html大写属性", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<test Name="test"></test>';
     assert.equal(sourceCode, resultCode);
   })
@@ -44,7 +48,7 @@ describe("html大写属性", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
     const resultCode = '<test sex="nan"></test>';
     assert.equal(sourceCode, resultCode);
   })
@@ -53,7 +57,8 @@ describe("html大写属性", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<test Name="test" sex="nan"></test>';
     assert.equal(sourceCode, resultCode);
   })

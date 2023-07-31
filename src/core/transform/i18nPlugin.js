@@ -3,6 +3,7 @@ const { declare } = require("@babel/helper-plugin-utils");
 const generate = require('@babel/generator').default;
 const isChinese = require("../utils/isChinese.js")
 const generateKey = require("../utils/generateKey.js")
+const regex = require("../utils/regex.js")
 module.exports =  declare((api, options) => {
   api.assertVersion(7);
   const { localData, needTranslate, isVue } = options;
@@ -28,6 +29,7 @@ module.exports =  declare((api, options) => {
   const cacheKeyFunc = (key, value) => {
     if(!localData[key]) {
       needTranslate[key] = value;
+      options.options.hasTransform = true;
     }
   }
 
@@ -106,8 +108,9 @@ module.exports =  declare((api, options) => {
       StringLiteral(path, state) {
         if (path.node.skipTransform) return;
         const label = path.node.value
+        const isHtmlAutoCloseTag = regex.htmlTagAutoClose?.test(label);
         // path.key值为key，说明对象的key是中文，需要跳过
-        if(isChinese(label) && path.key !== 'key') {
+        if(isChinese(label) && path.key !== 'key' && !isHtmlAutoCloseTag) {
           const key = generateKey(label, options);
           cacheKeyFunc(key, label);
           const expression = replaceExp(api, path, key);

@@ -102,13 +102,17 @@ module.exports = (
     const cacheKeyFunc = (key, value) => {
       if(!localData[key]) {
         needTranslate[key] = value;
+        options.hasTransform = true;
       }
     }
     const transformJsExp = (sourceCode) => {
-      let code = transformJs(localData, needTranslate, '', sourceCode, { ...options, needImport: false }, false, isVue)
+      let { code, hasTransform } = transformJs(localData, needTranslate, '', sourceCode, { ...options, needImport: false }, false, isVue)
       // 如果是;结尾，则删除
       if(code.endsWith(";")) {
         code = code.slice(0, -1);
+      }
+      if(hasTransform) {
+        options.hasTransform = true;
       }
       return code;
     }
@@ -212,6 +216,7 @@ module.exports = (
       }
     }
   }
+  options.hasTransform = false;
   traverseHtml(ast, localData, needTranslate, options)
 
   // 根据ast生成code
@@ -251,13 +256,18 @@ module.exports = (
   code = toPascal(code)
   // 代码填回
   if (isWritingFile) {
-    fs.writeFileSync(filePath, code, { encoding: "utf-8" }, err => {
-      if(err) {
-        console.log(chalk.red(err));
-        process.exit(2);
-      }
-    });
+    if(options.hasTransform) {
+      fs.writeFileSync(filePath, code, { encoding: "utf-8" }, err => {
+        if(err) {
+          console.log(chalk.red(err));
+          process.exit(2);
+        }
+      });
+    }
   } else {
-    return code;
+    return {
+      code,
+      hasTransform: options.hasTransform
+    };
   }
 };

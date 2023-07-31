@@ -8,7 +8,8 @@ describe("html自闭和标签", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } = transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<Test></Test>';
     assert.equal(sourceCode, resultCode);
   })
@@ -17,7 +18,8 @@ describe("html自闭和标签", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } = transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<test></test>';
     assert.equal(sourceCode, resultCode);
   })
@@ -26,7 +28,8 @@ describe("html自闭和标签", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } = transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<Test Name="test" sex="nan"></Test>';
     assert.equal(sourceCode, resultCode);
   })
@@ -35,7 +38,8 @@ describe("html自闭和标签", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } = transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<test Name="test" sex="nan"></test>';
     assert.equal(sourceCode, resultCode);
   })

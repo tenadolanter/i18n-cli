@@ -130,3 +130,5 @@ export default Vue.extend({
 - [x] 多个 template 标签解析报错
 
 - [x] form 里面的规则报错，:rules="{ required: true, message: '请输入名称', trigger: 'blur' }"
+
+- ts里面强制类型转换`const arrs = <any>[]arr`

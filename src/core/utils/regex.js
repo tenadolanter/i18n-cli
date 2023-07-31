@@ -19,4 +19,6 @@ module.exports = {
   htmlAutoCloseTag: /<([a-z][a-z0-9-]+)(?:[^>]*?)?\/>/g,
   // 匹配<template或</template
   htmlTemplateTag: /(<\/?)(template)/g,
+  // 匹配html闭和标签
+  htmlTagAutoClose: /<\/?.+?>/g,
 }

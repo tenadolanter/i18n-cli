@@ -3,14 +3,17 @@ const transformJs = require("./transformJs.js")
 module.exports = (localData, needTranslate, filePath, sourceCode, options, isWritingFile = true, isVue = false,) => {
   const { babelPresets = [] } = options || {};
   const presetOption = isVue ? { allExtensions: true } : { isTSX: true, allExtensions: true };
-  const code = transformJs(localData, needTranslate, filePath, sourceCode, {
+  const { code, hasTransform } = transformJs(localData, needTranslate, filePath, sourceCode, {
     ...options,
     babelPresets: [
       ...babelPresets,
       [ParserTypeScript, presetOption]
     ]
-  }, isWritingFile)
+  }, isWritingFile) ?? {};
   if(!isWritingFile) {
-    return code;
+    return {
+      code,
+      hasTransform,
+    };
   }
 }

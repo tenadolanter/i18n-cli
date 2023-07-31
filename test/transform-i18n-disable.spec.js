@@ -10,7 +10,8 @@ describe("i18n-disable", () => {
       ...defaultOption,
       ignoreMethods: ['console.log'],
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = `<div class="wrap">\n<!-- i18n-disable -->\n<div>测试123</div>\n</div>`;
     assert.equal(sourceCode, resultCode);
   })

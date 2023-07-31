@@ -56,9 +56,15 @@ module.exports = (localData, needTranslate, file, options) => {
           const matchs = fullText.match(regex.htmlTemplateTag) ?? [];
           const matchLen = matchs?.length;
           if(matchLen === 0 || matchLen%2 === 0) {
-            const code = transformHtml(localData, needTranslate, '', fullText, options, false, true);
+            const { code, hasTransform } = transformHtml(localData, needTranslate, '', fullText, options, false, true);
+            let tempCode = code;
+            if(hasTransform) {
+              tempCode = `\n  ${tempCode}`
+            } else {
+              tempCode = fullText;
+            }
             html += openTagFunc(name, lastAttrs);
-            html += `\n  ${code}`;
+            html += tempCode;
             html += closeTagFun(name);
           } else {
             if(lastIndex != null) return;
@@ -66,16 +72,23 @@ module.exports = (localData, needTranslate, file, options) => {
           }
         }
         else if(name === "script") {
-          let code = "";
+          let result;
           if(lastAttrs.lang === "ts") {
-            code = transformTs(localData, needTranslate, '', fullText, options, false, true);
+            result = transformTs(localData, needTranslate, '', fullText, options, false, true);
           } else if(lastAttrs.lang === "tsx") {
-            code = transformTs(localData, needTranslate, '', fullText, options, false, true);
+            result = transformTs(localData, needTranslate, '', fullText, options, false, true);
           } else {
-            code = transformJs(localData, needTranslate, '', fullText, options, false, true);
+            result = transformJs(localData, needTranslate, '', fullText, options, false, false);
+          }
+          const { code, hasTransform } = result ?? {};
+          let tempCode = code;
+          if(hasTransform) {
+            tempCode = `\n${code}\n`
+          } else {
+            tempCode = fullText;
           }
           html += openTagFunc(name, lastAttrs);
-          html += `\n${code}\n`;
+          html += tempCode;
           html += closeTagFun(name);
         }
         lastIndex = null

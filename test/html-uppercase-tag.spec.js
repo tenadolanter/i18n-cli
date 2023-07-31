@@ -8,7 +8,8 @@ describe("html大写标签", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = '<Test></Test>';
     assert.equal(sourceCode, resultCode);
   })

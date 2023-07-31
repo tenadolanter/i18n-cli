@@ -15,6 +15,7 @@ const I18nPlugin = require("./i18nPlugin.js")
 module.exports = (localData, needTranslate, filePath, sourceCode, options, isWritingFile = true, isVue = false) => {
   // 转换成ast
   const { babelPresets = [], babelPlugins = [] } = options;
+  options.hasTransform = false;
   const ast = parseSync(sourceCode,{
     sourceType: 'module',
     ast: true,
@@ -50,13 +51,18 @@ module.exports = (localData, needTranslate, filePath, sourceCode, options, isWri
 
   // 代码填回
   if(isWritingFile) {
-    fs.writeFileSync(filePath, code, { encoding: 'utf-8' }, err => {
-      if(err) {
-        console.log(chalk.red(err));
-        process.exit(2);
-      }
-    })
+    if(options.hasTransform) {
+      fs.writeFileSync(filePath, code, { encoding: 'utf-8' }, err => {
+        if(err) {
+          console.log(chalk.red(err));
+          process.exit(2);
+        }
+      })
+    }
   } else {
-    return code;
+    return {
+      code,
+      hasTransform: options.hasTransform,
+    };
   }
 }

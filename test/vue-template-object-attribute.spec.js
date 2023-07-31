@@ -8,7 +8,8 @@ describe("vue的template里的属性为对象", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = `<div v-tooltip.top="{\n  value: $t('ce-shi'),\n  class: 'chart-item-title-tooltip'\n}">{{$t('zan-wu-shu-ju')}}</div>`;
     assert.equal(sourceCode, resultCode);
   })
@@ -17,7 +18,8 @@ describe("vue的template里的属性为对象", () => {
     const option = {
       ...defaultOption,
     }
-    sourceCode = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
     const resultCode = `<form-item :rules="{\n  required: true,\n  message: $t('qing-shu-ru-ming-cheng'),\n  trigger: 'blur'\n}"></form-item>`;
     assert.equal(sourceCode, resultCode);
   })
