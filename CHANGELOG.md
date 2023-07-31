@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.2 (2023-07-31)
+
+
+### Bug Fixes
+
+* 修复低版本node里面replaceAll方法报错 ([84b60a4](https://github.com/tenadolanter/i18n-cli/commit/84b60a45dded4a3d87e93af0357a31254471f95f))
+
 ### 1.3.1 (2023-07-31)
 
 ## 1.3.0 (2023-07-27)
