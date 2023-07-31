@@ -29,6 +29,9 @@
     "url": "https://github.com/tenadolanter/i18n-cli/issues"
   },
   "homepage": "https://github.com/tenadolanter/i18n-cli#readme",
+  "engines": {
+    "node": ">15.0.0"
+  },
   "dependencies": {
     "@babel/core": "^7.22.5",
     "@babel/generator": "^7.22.5",
