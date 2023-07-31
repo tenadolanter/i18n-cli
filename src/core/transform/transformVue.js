@@ -69,6 +69,8 @@ module.exports = (localData, needTranslate, file, options) => {
           let code = "";
           if(lastAttrs.lang === "ts") {
             code = transformTs(localData, needTranslate, '', fullText, options, false, true);
+          } else if(lastAttrs.lang === "tsx") {
+            code = transformTs(localData, needTranslate, '', fullText, options, false, true);
           } else {
             code = transformJs(localData, needTranslate, '', fullText, options, false, true);
           }
