@@ -106,7 +106,8 @@ module.exports =  declare((api, options) => {
       StringLiteral(path, state) {
         if (path.node.skipTransform) return;
         const label = path.node.value
-        if(isChinese(label)) {
+        // path.key值为key，说明对象的key是中文，需要跳过
+        if(isChinese(label) && path.key !== 'key') {
           const key = generateKey(label, options);
           cacheKeyFunc(key, label);
           const expression = replaceExp(api, path, key);
