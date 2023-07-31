@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.5 (2023-07-31)
+
+
+### Bug Fixes
+
+* 修复对象的中文key解析报错 ([c78b8be](https://github.com/tenadolanter/i18n-cli/commit/c78b8be5db702c1f75393d51d00923bac24f7c42))
+
 ## 1.2.0 (2023-07-27)
 
 
