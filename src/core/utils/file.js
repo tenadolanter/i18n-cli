@@ -7,7 +7,7 @@ module.exports = function(options = {}) {
   let results = [];
   const getSourceFiles = (entry, exclude) => {
     return glob.sync(`${entry}/**/*.{js,ts,tsx,jsx,vue}`, {
-      exclude: exclude || [],
+      ignore: exclude || [],
     })
   }
   const { entry, exclude } = options;

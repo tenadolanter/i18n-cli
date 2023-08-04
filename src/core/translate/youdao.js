@@ -5,12 +5,12 @@ const langMap = require("./langMap.js");
 const defaultOptions = {
   from: "auto",
   to: "en",
-  appid: "",
+  appKey: "",
   salt: "wgb236hj",
   sign: "",
 }
 module.exports = async (text, lang, options) => {
-  const hostUrl =  "http://api.fanyi.baidu.com/api/trans/vip/translate";
+  const hostUrl =  "https://openapi.youdao.com/api";
   let _options = {
     q: text,
     ...defaultOptions,
@@ -18,13 +18,13 @@ module.exports = async (text, lang, options) => {
   const { local } = options ?? {};
   const { appId, secretKey } = options?.translate ?? {};
   if(local) {
-    _options.from = langMap('baidu', local);
+    _options.from = langMap('youdao', local);
   }
   if(lang) {
-    _options.to = langMap('baidu', lang);
+    _options.to = langMap('youdao', lang);
   }
-  _options.appid = appId;
-  const str = `${_options.appid}${_options.q}${_options.salt}${secretKey}`;
+  _options.appKey = appId;
+  const str = `${_options.appKey}${_options.q}${_options.salt}${secretKey}`;
   _options.sign = md5(str);
   const buildBody = () => {
     return new URLSearchParams(_options).toString();
@@ -54,11 +54,11 @@ module.exports = async (text, lang, options) => {
       return createHttpError(res.status, res.statusText);
     }
   }
-  const buildText = ({ error_code, error_msg, trans_result }) => {
-    if(!error_code) {
-      return trans_result?.[0]?.dst;
+  const buildText = ({ errorCode, translation }) => {
+    if(errorCode === "0") {
+      return translation?.[0];
     } else {
-      console.error(`百度翻译报错: ${error_code}, ${error_msg}`)
+      console.error(`有道翻译报错: ${errorCode}`)
       return '';
     }
   }

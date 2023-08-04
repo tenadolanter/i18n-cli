@@ -1,8 +1,8 @@
 module.exports = {
-  entry: ['example/vue-transform-error-ts'],
+  entry: ['example/transform-exclude'],
   exclude: [],
   local: 'zh-CN',
-  localPath: './example/vue-transform-error-ts/locales',
+  localPath: './example/transform-exclude/locales',
   langs: ['en-US'],
   keyRule: '',
   i18nImport: "import { i18n } from 'i18n';",

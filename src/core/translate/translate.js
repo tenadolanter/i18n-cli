@@ -1,5 +1,6 @@
 const baiduTranslate = require("./baidu.js");
 const googleTranslate = require("./google.js");
+const youdaoTranslate = require("./youdao.js");
 /**
  * 根据不同配置，生成不同翻译
  * @param { String } type - 翻译类型，可以为百度、谷歌等
@@ -14,5 +15,8 @@ module.exports = async (type, text, lang, options) => {
   }
   else if(type === "google"){
     return googleTranslate(text, lang, options);
+  }
+  else if(type === "youdao"){
+    return youdaoTranslate(text, lang, options);
   }
 }
