@@ -56,7 +56,7 @@ module.exports = async (text, lang, options) => {
   }
   const buildText = ({ error_code, error_msg, trans_result }) => {
     if(!error_code) {
-      return trans_result?.[0]?.dst;
+      return trans_result?.map(item => item.dst);
     } else {
       console.error(`百度翻译报错: ${error_code}, ${error_msg}`)
       return '';

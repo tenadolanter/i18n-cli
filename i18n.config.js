@@ -11,8 +11,8 @@ module.exports = {
   vueTemplateLabelPrefix: 'auto-i18n-prefix-',
   translate: {
     type: 'baidu',
-    appId: '20230615001713359',
-    secretKey: 'd4C2LAfNchZhlFKV2b1k',
+    appId: '20230809001774995',
+    secretKey: 'J1ArqOof1s8Q7zrqO8fL',
     interval: 1000,
   },
   ignoreText: "i18n-disable",

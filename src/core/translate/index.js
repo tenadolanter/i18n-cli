@@ -45,7 +45,12 @@ module.exports = async (needTranslate, options) => {
         await sleep(interval);
         const res = await translate(type, translateText, lang, options);
         if(res) {
-          const resArr = res.split(separator)
+          let resArr = [];
+          if(Object.prototype.toString.call(res) === "[object Array]") {
+            resArr = res.map(item => item);
+          } else {
+            resArr = res.split(separator);
+          }
           batchTranslateResolve(resArr, collectKey,  _translate)
         }
         collectText = [];
