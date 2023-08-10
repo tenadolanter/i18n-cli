@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.8 (2023-08-10)
+
+
+### Bug Fixes
+
+* 修复vue的template嵌套时候解析报错问题 ([a2b72bb](https://github.com/tenadolanter/i18n-cli/commit/a2b72bb29a915793469adbfe44bb8d9e9ea6b76c))
+
 ## 1.2.0 (2023-07-27)
 
 
