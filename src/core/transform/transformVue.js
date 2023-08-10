@@ -52,10 +52,12 @@ module.exports = (localData, needTranslate, file, options) => {
       } else {
         const fullText = sourceCode.slice(lastIndex, parser.startIndex);
         if(name === "template") {
-          // 如果template是0或偶数个，则说明匹配结束
+          // 如果template是0或偶数个，且`<template`个数和`</template`个数一样，则说明匹配结束
           const matchs = fullText.match(regex.htmlTemplateTag) ?? [];
           const matchLen = matchs?.length;
-          if(matchLen === 0 || matchLen%2 === 0) {
+          const templateStarts = (fullText.match(regex.htmlTemplateStartTag) ?? []).length;
+          const templateEnds = (fullText.match(regex.htmlTemplateEndTag) ?? []).length;
+          if(matchLen === 0 || (matchLen%2 === 0 && templateStarts === templateEnds)) {
             const { code, hasTransform } = transformHtml(localData, needTranslate, '', fullText, options, false, true);
             let tempCode = code;
             if(hasTransform) {

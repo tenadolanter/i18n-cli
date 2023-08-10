@@ -109,8 +109,12 @@ module.exports =  declare((api, options) => {
         if (path.node.skipTransform) return;
         const label = path.node.value
         const isHtmlAutoCloseTag = regex.htmlTagAutoClose?.test(label);
+        // 如果中文作为函数的参数，则跳过
+        if(path?.parent?.type === "CallExpression"){
+          path.skip();
+        }
         // path.key值为key，说明对象的key是中文，需要跳过
-        if(isChinese(label) && path.key !== 'key' && !isHtmlAutoCloseTag) {
+        else if(isChinese(label) && path.key !== 'key' && !isHtmlAutoCloseTag) {
           const key = generateKey(label, options);
           cacheKeyFunc(key, label);
           const expression = replaceExp(api, path, key);

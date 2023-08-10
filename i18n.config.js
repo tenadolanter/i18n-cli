@@ -1,8 +1,8 @@
 module.exports = {
-  entry: ['example/transform-exclude'],
+  entry: ['example/vue-transform-template'],
   exclude: [],
   local: 'zh-CN',
-  localPath: './example/transform-exclude/locales',
+  localPath: './example/vue-transform-template/locales',
   langs: ['en-US'],
   keyRule: '',
   i18nImport: "import { i18n } from 'i18n';",
@@ -17,4 +17,5 @@ module.exports = {
   },
   ignoreText: "i18n-disable",
   ignoreMethods: ['console.log'],
+  ignoreAttributes: ['style', 'class', 'script', 'id'],
 };

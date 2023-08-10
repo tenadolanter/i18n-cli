@@ -44,7 +44,7 @@ npx i18n-cli init
 | ignoreMethods       | Array  | 需要被忽略的方法，例如 console.log                                 | []                           |
 | ignoreAttributes    | Array  | 需要被忽略的属性                                                   | []                           |
 | translate           | Object | 翻译相关配置                                                       | -                            |
-| translate.type      | String | 翻译的类型，baidu、google                                          | -                            |
+| translate.type      | String | 翻译的类型，baidu、youdao、google                                  | -                            |
 | translate.appId     | String | 翻译 appId                                                         | -                            |
 | translate.secretKey | String | 翻译 secretKey                                                     | -                            |
 | translate.interval  | Number | 翻译接口调用间隔，防止太频繁                                       | 1000                         |
