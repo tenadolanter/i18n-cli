@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.9 (2023-08-11)
+
+
+### Bug Fixes
+
+* 修复Form和FormItem转换报错 ([687e57f](https://github.com/tenadolanter/i18n-cli/commit/687e57f9c97ea097b88fab81819477fbc56068be))
+
 ## 1.2.0 (2023-07-27)
 
 
