@@ -1,8 +1,8 @@
 module.exports = {
-  entry: ['example/vue-transform-template'],
+  entry: ['example/svg-transform'],
   exclude: [],
   local: 'zh-CN',
-  localPath: './example/vue-transform-template/locales',
+  localPath: './example/svg-transform/locales',
   langs: ['en-US'],
   keyRule: '',
   i18nImport: "import { i18n } from 'i18n';",

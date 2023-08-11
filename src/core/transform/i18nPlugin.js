@@ -129,7 +129,8 @@ module.exports =  declare((api, options) => {
           .get("quasis")
           .map((item) => item.node.value.raw)
           .join("{placeholder}");
-        if (label && isChinese(label)) {
+        const isHtmlAutoCloseTag = regex.htmlTagAutoClose?.test(label);
+        if (label && isChinese(label) && !isHtmlAutoCloseTag) {
           const key = generateKey(label, options);
           cacheKeyFunc(key, label);
           const expression = replaceExp(api, path, key);

@@ -30,12 +30,13 @@ module.exports = (
   const toKebab = (sourceCode) => {
     // 如果标签是大写，则替换并缓存
     sourceCode = sourceCode.replaceAll(regex.htmlTagWidthUppercaseChar, (_, $1, $2) => {
-      const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}`
+      // 在key的前后都加上前缀，防止出现Form和FormItem转换报错
+      const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}${vueTemplateLabelPrefix}`
       keysMap[temp] = $2;
       return `${$1}${temp}`
     })
     sourceCode = sourceCode.replaceAll(regex.htmlAttributeWidthUppercaseChar, ($1) => {
-      const temp = `${vueTemplateLabelPrefix}${$1.toLowerCase()}`
+      const temp = `${vueTemplateLabelPrefix}${$1.toLowerCase()}${vueTemplateLabelPrefix}`
       keysMap[temp] = $1;
       return `${temp}`
     })
@@ -53,7 +54,7 @@ module.exports = (
   // 将代码里的template转换
   const toTempalte = (sourceCode) => {
     sourceCode = sourceCode.replaceAll(regex.htmlTemplateTag, (_, $1, $2) => {
-      const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}`
+      const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}${vueTemplateLabelPrefix}`
       keysMap[temp] = $2;
       return `${$1}${temp}`
     })
