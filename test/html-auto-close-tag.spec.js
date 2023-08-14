@@ -43,4 +43,14 @@ describe("html自闭和标签", () => {
     const resultCode = '<test Name="test" sex="nan"></test>';
     assert.equal(sourceCode, resultCode);
   })
+  it("html自闭和标签，单个标签", () => {
+    let sourceCode = '<i Name="test" sex="nan" />';
+    const option = {
+      ...defaultOption,
+    }
+    const { code } = transformHtml({}, {}, '', sourceCode, option, false, true);
+    sourceCode = code
+    const resultCode = '<i Name="test" sex="nan"></i>';
+    assert.equal(sourceCode, resultCode);
+  })
 })

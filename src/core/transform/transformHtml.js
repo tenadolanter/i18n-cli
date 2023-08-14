@@ -18,7 +18,9 @@ module.exports = (
   isWritingFile = true,
   isVue = false,
 ) => {
-  const { vueTemplateLabelPrefix, ignoreText, ignoreAttributes } = options ?? {};
+  const { ignoreText, ignoreAttributes } = options ?? {};
+  const vueTemplateLabelPrefix = "autoi18nprefix"
+  const vueTemplateLabelSuffix = "autoi18nsuffix"
   const treeAdapter = {
     ...treeAdapterDefault,
   }
@@ -29,14 +31,14 @@ module.exports = (
   // 将大写字符转换为小写
   const toKebab = (sourceCode) => {
     // 如果标签是大写，则替换并缓存
-    sourceCode = sourceCode.replaceAll(regex.htmlTagWidthUppercaseChar, (_, $1, $2) => {
+    sourceCode = sourceCode.replace(regex.htmlTagWidthUppercaseChar, (_, $1, $2) => {
       // 在key的前后都加上前缀，防止出现Form和FormItem转换报错
-      const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}${vueTemplateLabelPrefix}`
+      const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}${vueTemplateLabelSuffix}`
       keysMap[temp] = $2;
       return `${$1}${temp}`
     })
-    sourceCode = sourceCode.replaceAll(regex.htmlAttributeWidthUppercaseChar, ($1) => {
-      const temp = `${vueTemplateLabelPrefix}${$1.toLowerCase()}${vueTemplateLabelPrefix}`
+    sourceCode = sourceCode.replace(regex.htmlAttributeWidthUppercaseChar, ($1) => {
+      const temp = `${vueTemplateLabelPrefix}${$1.toLowerCase()}${vueTemplateLabelSuffix}`
       keysMap[temp] = $1;
       return `${temp}`
     })
@@ -45,7 +47,7 @@ module.exports = (
   }
   // 将自闭和标签替换为成对的标签
   const toAutoColse = (sourceCode) => {
-    sourceCode = sourceCode.replaceAll(regex.htmlAutoCloseTag, ($1, $2) => {
+    sourceCode = sourceCode.replace(regex.htmlAutoCloseTag, ($1, $2) => {
       const replaceStr = $1.replace('/>', '>')
       return `${replaceStr}</${$2}>`
     })
@@ -53,8 +55,8 @@ module.exports = (
   }
   // 将代码里的template转换
   const toTempalte = (sourceCode) => {
-    sourceCode = sourceCode.replaceAll(regex.htmlTemplateTag, (_, $1, $2) => {
-      const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}${vueTemplateLabelPrefix}`
+    sourceCode = sourceCode.replace(regex.htmlTemplateTag, (_, $1, $2) => {
+      const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}${vueTemplateLabelSuffix}`
       keysMap[temp] = $2;
       return `${$1}${temp}`
     })
@@ -65,11 +67,31 @@ module.exports = (
   const toPascal = (sourceCode) => {
     Object.keys(keysMap).forEach(i => {
       const reg = new RegExp(`${i}`, 'g');
-      sourceCode = sourceCode.replaceAll(reg, ($1) => {
+      sourceCode = sourceCode.replace(reg, ($1) => {
         const temp = keysMap[$1] || $1;
         return `${temp}`
       })
     })
+    return sourceCode;
+  }
+
+  // 转义特殊字符
+  const toEscapeHtml = (sourceCode) => {
+    const charMap = {
+      "&nbsp;": ' ',
+      "&lt;": '<',
+      "&gt;": '>',
+      "&quot;": '"',
+      "&amp;": '&',
+    }
+    const keys = Object.keys(charMap);
+    const len = keys?.length;
+    for(let i = 0; i < len; i++) {
+      const key = keys[i];
+      const value = charMap[key];
+      const reg = new RegExp(key, 'g');
+      sourceCode = sourceCode.replace(reg, value)
+    }
     return sourceCode;
   }
 
@@ -255,6 +277,7 @@ module.exports = (
   let code = htmlFromAst(ast);
   code = code.split("<body>")[1].split("</body>")[0];
   code = toPascal(code)
+  code = toEscapeHtml(code)
   // 代码填回
   if (isWritingFile) {
     if(options.hasTransform) {

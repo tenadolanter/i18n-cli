@@ -1,14 +1,13 @@
 module.exports = {
-  entry: ['example/svg-transform'],
+  entry: ['example/transform-i-tag'],
   exclude: [],
   local: 'zh-CN',
-  localPath: './example/svg-transform/locales',
+  localPath: './example/transform-i-tag/locales',
   langs: ['en-US'],
   keyRule: '',
   i18nImport: "import { i18n } from 'i18n';",
   i18nObject: 'i18n',
   i18nMethod: 't',
-  vueTemplateLabelPrefix: 'auto-i18n-prefix-',
   translate: {
     type: 'baidu',
     appId: '20230809001774995',
