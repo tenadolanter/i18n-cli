@@ -12,11 +12,11 @@ module.exports = {
   //  aibvTsts
   //  NameHdd
   // ></Test>
-  htmlTagWidthUppercaseChar: /(<\/?)(([a-z][a-z0-9-]+)?[A-Z][a-zA-Z0-9-]*)/g,
+  htmlTagWidthUppercaseChar: /(<\/?)(([a-z][a-z0-9-]?)?[A-Z][a-zA-Z0-9-]*)/g,
   // 匹配所有包含大写字母的属性
   htmlAttributeWidthUppercaseChar: /(?<=\s|^)((@?)(:?)([a-z][a-z0-9-]+)?[A-Z][a-zA-Z0-9-]*)(?=[=\s>])/g,
   // 匹配自闭和标签
-  htmlAutoCloseTag: /<([a-z][a-z0-9-]+)(?:[^>]*?)?\/>/g,
+  htmlAutoCloseTag: /<([a-z][a-z0-9-]?)(?:[^>]*?)?\/>/g,
   // 匹配<template或</template
   htmlTemplateTag: /(<\/?)(template)/g,
   htmlTemplateStartTag: /(<template)/g,
