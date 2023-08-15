@@ -17,6 +17,8 @@
   "scripts": {
     "init": "node ./bin/i18n-cli init",
     "sync": "node ./bin/i18n-cli sync",
+    "extract": "node ./bin/i18n-cli extract",
+    "translate": "node ./bin/i18n-cli translate",
     "test": "mocha --recursive"
   },
   "repository": {

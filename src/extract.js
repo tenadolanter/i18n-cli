@@ -1,16 +1,17 @@
-const chalk = require("chalk");
-const getLangTranslates = require("./utils/getTranslate.js")
-const getFilesFromFolder = require("./utils/file.js")
-const transformCore = require("./transform/index.js")
-const translateCore = require("./translate/index.js")
 /**
  * 处理并收集需要翻译的内容
  * 1、获取已经收集到的key列表
  * 2、获取需要处理的文件列表
  * 3、转换文件
- * 4、翻译中文，更新其他语言，并将翻译后的内容存起来
 */
-module.exports = function(options = {}) {
+const chalk = require("chalk");
+const getLangTranslates = require("./core/utils/getTranslate.js")
+const getFilesFromFolder = require("./core/utils/file.js")
+const transformCore = require("./core/transform/index.js")
+const saveTranslate = require("./core/utils/saveTranslate.js")
+const mergeOptions = require("./core/utils/mergeOptions.js");
+module.exports = (opts) => {
+  const options = mergeOptions(opts);
   const { entry } = options;
   if(!Array.isArray(entry) && !typeof entry !== 'string') {
     console.log(chalk.red('entry必须是字符串或数组'));
@@ -25,7 +26,6 @@ module.exports = function(options = {}) {
   const localLang = options.local;
   localData = getLangTranslates(options, localLang);
 
-
   // 2、获取需要处理的文件列表
   // 需要处理的文件列表
   let targetFiles = [];
@@ -37,6 +37,6 @@ module.exports = function(options = {}) {
     console.log(chalk.green(`${file.filePath}转换完成...`));
   })
 
-  // 4、翻译中文，更新其他语言，并将翻译后的内容存起来
-  translateCore(needTranslate, options);
+  // 4、将未翻译的存入local语言对应的json文件中
+  saveTranslate(options, localLang, needTranslate)
 }

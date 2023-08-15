@@ -1,6 +1,7 @@
 const option = require("../package.json");
 const init = require("./init.js");
-const collect = require("./collect.js");
+const extract = require("./extract.js");
+const translate = require("./translate.js");
 module.exports = function cli(program) {
   program
     .name(option.name)
@@ -23,6 +24,25 @@ module.exports = function cli(program) {
     .alias("s")
     .description("生成i18n翻译")
     .action(() => {
-      collect();
+      extract();
+      translate();
+    });
+
+  // 收集代码里面的中文
+  program
+    .command("extract")
+    .alias("e")
+    .description("收集代码里面的中文")
+    .action(() => {
+      extract();
+    });
+
+  // 翻译收集到的中文
+  program
+    .command("translate")
+    .alias("t")
+    .description("翻译收集到的中文")
+    .action(() => {
+      translate();
     });
 };

@@ -55,6 +55,8 @@ npx i18n-cli init
 npx i18n-cli sync
 ```
 
+特别说明：可以使用`npx i18n-cli extract`和`npx i18n-cli translate`代替如上命令，分步骤执行，1)提取代码里面的中文部分，2)翻译提取到的中文
+
 ## 转换示例
 
 转换前
