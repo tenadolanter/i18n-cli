@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.11 (2023-08-15)
+
+
+### Bug Fixes
+
+* 将脚本拆分为提取和翻译两个步骤 ([31f404c](https://github.com/tenadolanter/i18n-cli/commit/31f404c0ff86f441f5d6ea0e0899968a279f4113))
+
 ## 1.2.0 (2023-07-27)
 
 
