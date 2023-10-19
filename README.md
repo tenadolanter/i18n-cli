@@ -6,7 +6,7 @@ i18n-cli 是一个自动国际化脚本，通过执行命令，自动提取代�
 
 ### 0、环境
 
-请确保你的 node 版本大于 15.0.0，因为老的 node 版本不支持`replaceAll`方法
+node > 15.0.0
 
 ### 1、安装
 
@@ -18,13 +18,17 @@ yarn add  @tenado/i18n-cli -D
 
 ### 2、初始化
 
+执行如下命令，会在项目目录下生成一个`i18n.config.js`文件，里面记录了脚本执行时候需要的配置
+
 ```node
 npx i18n-cli init
 ```
 
 ### 3、获取并配置百度翻译 api
 
-进入百度翻译开放平台[https://fanyi-api.baidu.com/manage/developer](https://fanyi-api.baidu.com/manage/developer)，申请 `APP ID` 和`秘钥`。
+- 进入百度翻译开放平台[https://fanyi-api.baidu.com/manage/developer](https://fanyi-api.baidu.com/manage/developer)，申请 `APP ID` 和`秘钥`。
+
+- 将获取到的`APP ID` 和`秘钥`填入`i18n.config.js`文件下的`translate.appId`和`translate.secretKey`并保存
 
 ### 4、配置 i18n.config.js
 
@@ -34,16 +38,14 @@ npx i18n-cli init
 | exclude             | Array  | 排除文件夹：'src/exclude/\*\*'，排除文件：'src/exclude/\*\*/\*.js' | []                           |
 | local               | String | 本地语言                                                           | zh-CN                        |
 | localPath           | String | 语言存放位置                                                       | src/locales                  |
-| langs               | Array  | 需要翻译的语言                                                     | en-US                        |
-| keyPrefix           | String | 给生成的 key 添加前缀                                              | -                            |
-| keygenStrategy      | String | 生成多语言 key 的规则，可以为 random 或空                          | -                            |
+| langs               | Array  | 需要翻译的语言列表                                                 | ['en-US']                    |
 | i18nImport          | String | 引入 i18n                                                          | import { i18n } from 'i18n'; |
 | i18nObject          | String | i18n 对象                                                          | i18n                         |
 | i18nMethod          | String | i18n 方法                                                          | t                            |
-| ignoreText          | String | 注释对应的文本                                                     | i18n-disable                 |
+| ignoreText          | String | 注释，如// i18n-disable，则注释所在行的中文不会被翻译              | i18n-disable                 |
 | ignoreMethods       | Array  | 需要被忽略的方法，例如 console.log                                 | []                           |
-| ignoreAttributes    | Array  | 需要被忽略的属性                                                   | []                           |
-| translate           | Object | 翻译相关配置                                                       | -                            |
+| ignoreAttributes    | Array  | 需要被忽略的属性，例如标签上的 id、name 等属性                     | []                           |
+| translate           | Object | 翻译配置对象                                                       | -                            |
 | translate.type      | String | 翻译的类型，baidu、youdao、google                                  | -                            |
 | translate.appId     | String | 翻译 appId                                                         | -                            |
 | translate.secretKey | String | 翻译 secretKey                                                     | -                            |
