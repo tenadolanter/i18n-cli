@@ -137,3 +137,9 @@ export default Vue.extend({
 - [x] form 里面的规则报错，:rules="{ required: true, message: '请输入名称', trigger: 'blur' }"
 
 - [x] ts 里面强制类型转换`const arrs = <any>[]arr`
+
+## 反馈交流
+
+加 i18n-cli 群:
+
+<img src="./assets/152908.png" alt="微信群二维码" width="200">
