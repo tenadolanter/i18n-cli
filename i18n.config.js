@@ -4,9 +4,9 @@ module.exports = {
   local: 'zh-CN',
   localPath: './example/transform-i-tag/locales',
   langs: ['en-US'],
-  keyRule: '',
-  i18nImport: "import { i18n } from 'i18n';",
-  i18nObject: 'i18n',
+  keyPrefix: "testKeyPrefix.",
+  i18nImport: "import { t } from 'i18n';",
+  i18nObject: '',
   i18nMethod: 't',
   translate: {
     type: 'baidu',

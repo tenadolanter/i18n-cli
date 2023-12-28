@@ -39,6 +39,7 @@ npx i18n-cli init
 | local               | String | 本地语言                                                           | zh-CN                        |
 | localPath           | String | 语言存放位置                                                       | src/locales                  |
 | langs               | Array  | 需要翻译的语言列表                                                 | ['en-US']                    |
+| keyPrefix           | String | 生成翻译 key 时候的默认前缀                                        | -                            |
 | i18nImport          | String | 引入 i18n                                                          | import { i18n } from 'i18n'; |
 | i18nObject          | String | i18n 对象                                                          | i18n                         |
 | i18nMethod          | String | i18n 方法                                                          | t                            |
@@ -137,9 +138,3 @@ export default Vue.extend({
 - [x] form 里面的规则报错，:rules="{ required: true, message: '请输入名称', trigger: 'blur' }"
 
 - [x] ts 里面强制类型转换`const arrs = <any>[]arr`
-
-## 反馈交流
-
-加 i18n-cli 群:
-
-<img src="./assets/152908.png" alt="微信群二维码" width="200">

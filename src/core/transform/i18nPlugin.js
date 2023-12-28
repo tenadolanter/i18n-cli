@@ -12,7 +12,7 @@ module.exports =  declare((api, options) => {
     const expressionParams = path.isTemplateLiteral()
       ? path.node.expressions.map((item) => generate(item).code)
       : null;
-    const methodName = isVue ? `$${i18nMethod}` : `${i18nObject}.${i18nMethod}`;
+    const methodName = isVue ? `$${i18nMethod}` : (i18nObject ? `${i18nObject}.${i18nMethod}` : i18nMethod);
     let replaceExpression = api.template.ast(
       `${methodName}('${value}'${
         expressionParams ? "," + expressionParams.join(",") : ""
@@ -90,7 +90,7 @@ module.exports =  declare((api, options) => {
         if (path.node.skipTransform) return;
         const label = path.node.value
         if(isChinese(label)) {
-          const key = generateKey(label, options);
+          const key = generateKey(label, options.options);
           cacheKeyFunc(key, label);
           const t = api.types;
           const methodName = isVue ? `$${i18nMethod}` : `${i18nObject}.${i18nMethod}`;
@@ -115,7 +115,7 @@ module.exports =  declare((api, options) => {
         }
         // path.key值为key，说明对象的key是中文，需要跳过
         else if(isChinese(label) && path.key !== 'key' && !isHtmlAutoCloseTag) {
-          const key = generateKey(label, options);
+          const key = generateKey(label, options.options);
           cacheKeyFunc(key, label);
           const expression = replaceExp(api, path, key);
           path.replaceWith(expression);
@@ -131,7 +131,7 @@ module.exports =  declare((api, options) => {
           .join("{placeholder}");
         const isHtmlAutoCloseTag = regex.htmlTagAutoClose?.test(label);
         if (label && isChinese(label) && !isHtmlAutoCloseTag) {
-          const key = generateKey(label, options);
+          const key = generateKey(label, options.options);
           cacheKeyFunc(key, label);
           const expression = replaceExp(api, path, key);
           path.replaceWith(expression);
@@ -163,7 +163,7 @@ module.exports =  declare((api, options) => {
         if (path.node.skipTransform) return;
         const label = path.node.value
         if(isChinese(label)) {
-          const key = generateKey(label, options);
+          const key = generateKey(label, options.options);
           cacheKeyFunc(key, label);
           const expression = replaceExp(api, path, key);
           path.replaceWith(expression);

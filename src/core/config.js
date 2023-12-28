@@ -8,7 +8,7 @@ module.exports =  {
   keyPrefix: "",
   keygenStrategy: "",
   i18nImport: "import { i18n } from 'i18n';",
-  i18nObject: "i18n",
+  i18nObject: "",
   i18nMethod: "t",
   translate: null,
   ignoreText: "i18n-disable",
