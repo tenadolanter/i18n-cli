@@ -6,7 +6,6 @@ module.exports =  {
   localPath: "src/locales",
   langs: ["en-US"],
   keyPrefix: "",
-  keygenStrategy: "",
   i18nImport: "import { i18n } from 'i18n';",
   i18nObject: "",
   i18nMethod: "t",
