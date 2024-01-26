@@ -2,7 +2,7 @@
 
 i18n-cli 是一个自动国际化脚本，通过执行命令，自动提取代码里面的中文，自动调用百度或谷歌翻译接口，自动将翻译结果以 key-value 形式存入\*.json 语言包里。
 
-支持vue语法，支持jsx语法，和库无关的国际化脚本。
+支持 vue 语法，支持 jsx 语法，和库无关的国际化脚本。
 
 ## 使用
 
@@ -53,6 +53,20 @@ npx i18n-cli init
 | translate.appId     | String | 翻译 appId                                                         | -                            |
 | translate.secretKey | String | 翻译 secretKey                                                     | -                            |
 | translate.interval  | Number | 翻译接口调用间隔，防止太频繁                                       | 1000                         |
+
+语言 key 映射：
+
+| 语言名称 | 语言 key |
+| -------- | -------- |
+| 简体中文 | zh-CN    |
+| 繁体中文 | zh-TW    |
+| 英语 | en-US    |
+| 日语     | ja-JP    |
+| 西班牙   | es-ES    |
+| 俄语     | ru-RU    |
+| 韩语     | ko-KR    |
+| 法语     | fr-FR    |
+| 德语     | de-DE    |
 
 ### 5、自动转换
 
@@ -121,7 +135,7 @@ export default Vue.extend({
 
 ## 特别提示
 
-提示：**如果转换失败，可以下载仓库代码，将需要翻译的文件夹拷贝到仓库下的example目录下，再次执行上面步骤来实现翻译，从而避免报错**
+提示：**如果转换失败，可以下载仓库代码，将需要翻译的文件夹拷贝到仓库下的 example 目录下，再次执行上面步骤来实现翻译，从而避免报错**
 
 ## TODO issue
 
