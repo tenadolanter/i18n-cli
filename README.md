@@ -141,6 +141,8 @@ export default Vue.extend({
 
 - [x] 处理在转换 html 的时候，大写的标签会自动转换为小写
 
+- [x] html里面标签转换错误，`<datasetDetailsDialog></datasetDetailsDialog>`
+
 - [x] 已经转换的代码，不需要再次转换
 
 - [x] 处理格式为`:name="'测试'"`类型的数据
@@ -158,3 +160,4 @@ export default Vue.extend({
 - [x] form 里面的规则报错，:rules="{ required: true, message: '请输入名称', trigger: 'blur' }"
 
 - [x] ts 里面强制类型转换`const arrs = <any>[]arr`
+
