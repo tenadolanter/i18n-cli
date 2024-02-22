@@ -12,9 +12,11 @@ module.exports = {
   //  aibvTsts
   //  NameHdd
   // ></Test>
-  htmlTagWidthUppercaseChar: /(<\/?)(([a-z][a-z0-9-]?)?[A-Z][a-zA-Z0-9-]*)/g,
-  // 匹配所有包含大写字母的属性
-  htmlAttributeWidthUppercaseChar: /(?<=\s|^)((@?)(:?)([a-z][a-z0-9-]+)?[A-Z][a-zA-Z0-9-]*)(?=[=\s>])/g,
+  htmlTagWithUppercaseChar: /(<\/?)(([a-z][a-z0-9-]+)?[A-Z][a-zA-Z0-9-]*)/g,
+  // 匹配所有包含大写字母的属性，例如<div :Ysss="name">或<div @Ysss="name">
+  htmlAttributeWithUppercaseChar: /(?<=\s|^)((@?)(:?)([a-z][a-z0-9-]+)?[A-Z][a-zA-Z0-9-]*)(?=[=\s>])/g,
+  // 匹配包含大写字母的插槽，例如<div #headToolbar></div>
+  htmlSlotWithUppercaseChar: /(?<=\s|^)(#([a-z][a-z0-9-]+)?[A-Z][a-zA-Z0-9-]*)(?=[=\s>])/g,
   // 匹配自闭和标签
   htmlAutoCloseTag: /<([a-z][a-z0-9-]?)(?:[^>]*?)?\/>/g,
   // 匹配<template或</template

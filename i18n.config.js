@@ -1,8 +1,8 @@
 module.exports = {
-  entry: ['example/transform-i-tag'],
+  entry: ['example/vue-tempalte-uppercase'],
   exclude: [],
   local: 'zh-CN',
-  localPath: './example/transform-i-tag/locales',
+  localPath: './example/vue-tempalte-uppercase/locales',
   langs: ['en-US'],
   keyPrefix: "testKeyPrefix.",
   i18nImport: "import { t } from 'i18n';",

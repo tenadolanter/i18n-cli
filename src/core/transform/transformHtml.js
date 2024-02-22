@@ -31,13 +31,18 @@ module.exports = (
   // 将大写字符转换为小写
   const toKebab = (sourceCode) => {
     // 如果标签是大写，则替换并缓存
-    sourceCode = sourceCode.replace(regex.htmlTagWidthUppercaseChar, (_, $1, $2) => {
+    sourceCode = sourceCode.replace(regex.htmlTagWithUppercaseChar, (_, $1, $2) => {
       // 在key的前后都加上前缀，防止出现Form和FormItem转换报错
       const temp = `${vueTemplateLabelPrefix}${$2.toLowerCase()}${vueTemplateLabelSuffix}`
       keysMap[temp] = $2;
       return `${$1}${temp}`
     })
-    sourceCode = sourceCode.replace(regex.htmlAttributeWidthUppercaseChar, ($1) => {
+    sourceCode = sourceCode.replace(regex.htmlAttributeWithUppercaseChar, ($1) => {
+      const temp = `${vueTemplateLabelPrefix}${$1.toLowerCase()}${vueTemplateLabelSuffix}`
+      keysMap[temp] = $1;
+      return `${temp}`
+    })
+    sourceCode = sourceCode.replace(regex.htmlSlotWithUppercaseChar, ($1) => {
       const temp = `${vueTemplateLabelPrefix}${$1.toLowerCase()}${vueTemplateLabelSuffix}`
       keysMap[temp] = $1;
       return `${temp}`
