@@ -1,16 +1,22 @@
 <template>
-  <LrLayout class="dataset-wrap" contentPadding :hasLeftPart="false">
+  <div v-if="showAsideList" v-loading="asideLoading" class="aside-wrap">
     <div>测试</div>
-    <!-- dataset抽屉 -->
-    <datasetDetailsDialog
-      :visible.sync="datasetDrawerVisible"
-      :before-close="handlerClose"
-      :select-row="selectRow"
-      :commandType="commandType"
-      :datasetId="selectRow.id"
-      @on-change-visible="onChangeDatasetDrawerVisible"
-    ></datasetDetailsDialog>
-  </LrLayout>
+    <Toolbar
+      :showAutomationSelector="false"
+      :runStatusList="runStatusList"
+      :curDatetime.sync="curDatetime"
+      :curStatus.sync="curStatus"
+      isVertical
+      class="toolbar"
+      @action="handleToolbar"
+    />
+    <AsideList
+      v-if="execLogList.length"
+      :list="execLogList"
+      :current.sync="currentLogRow"
+      :pagination="pagination"
+      @nextPage="getNextPage"
+      @change="getDetail"
+    />
+  </div>
 </template>
-
-
