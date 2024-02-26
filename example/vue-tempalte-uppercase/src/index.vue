@@ -20,3 +20,13 @@
     />
   </div>
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+      name: `测试你好${name}`
+    }
+  },
+}
+</script>

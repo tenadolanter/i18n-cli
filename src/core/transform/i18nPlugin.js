@@ -15,7 +15,7 @@ module.exports =  declare((api, options) => {
     const methodName = isVue ? `$${i18nMethod}` : (i18nObject ? `${i18nObject}.${i18nMethod}` : i18nMethod);
     let replaceExpression = api.template.ast(
       `${methodName}('${value}'${
-        expressionParams ? "," + expressionParams.join(",") : ""
+        expressionParams ? "," + "[" + expressionParams.join(",") + "]" : ""
       })`
     ).expression;
     if (
@@ -125,10 +125,19 @@ module.exports =  declare((api, options) => {
       },
       TemplateLiteral(path, state) {
         if (path.node.skipTransform) return;
+        let index = 0;
         const label = path
           .get("quasis")
-          .map((item) => item.node.value.raw)
-          .join("{placeholder}");
+          .map((item) => {
+            if(!!item.node.value.raw) {
+              return item.node.value.raw
+            } else {
+              let result = "{"+ index +"}"
+              index++;
+              return result;
+            }
+          })
+          .join("");
         const isHtmlAutoCloseTag = regex.htmlTagAutoClose?.test(label);
         if (label && isChinese(label) && !isHtmlAutoCloseTag) {
           const key = generateKey(label, options.options);
