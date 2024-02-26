@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.17 (2024-02-26)
+
+
+### Bug Fixes
+
+* 修复翻译中的变量显示bug ([0553caf](https://github.com/tenadolanter/i18n-cli/commit/0553caf0f69d3370aee102e59c01a762f5615c30))
+
 ### 1.3.16 (2024-02-22)
 
 
