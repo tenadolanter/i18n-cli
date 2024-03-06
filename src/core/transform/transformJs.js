@@ -36,6 +36,7 @@ module.exports = (localData, needTranslate, filePath, sourceCode, options, isWri
   })
 
   const { code } = transformFromAstSync(ast, sourceCode, {
+    configFile: false,
     plugins: [
       [
         I18nPlugin,
