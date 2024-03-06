@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.3.18 (2024-03-06)
+
+
+### Bug Fixes
+
+* 修复报错 Error: [BABEL] unknown file: Preset /* your preset */ requires a filename to be set when babel is called directly ([fc63c15](https://github.com/tenadolanter/i18n-cli/commit/fc63c159c96927f8e9ca02a150237881c8b5ae07))
+
 ### 1.3.17 (2024-02-26)
 
 
