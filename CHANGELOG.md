@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.4.0 (2024-05-27)
+
+
+### Features
+
+* 添加配置属性keyShowOrigin，控制生成的key后面是否跟着中文 ([906331d](https://github.com/tenadolanter/i18n-cli/commit/906331d3da0f1411f06dbf4a7679fe14a1c5ecb1))
+
 ### 1.3.18 (2024-03-06)
 
 
