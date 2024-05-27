@@ -4,10 +4,9 @@ i18n-cli 是一个自动国际化脚本，通过执行命令，自动提取代�
 
 支持 vue 语法，支持 jsx 语法，，支持 html 语法，i18n-cli 是一个和库无关的国际化脚本。
 
-
 ## 特别提示
 
-提示：**以脚手架的形式安装i18n-cli，可能会因为依赖版本冲突的问题导致转换失败，这种情况下可以下载github上的仓库代码，配置i18n.config.js后，将需要翻译的文件夹拷贝到仓库下，然后执行npm run sync**
+提示：**以脚手架的形式安装 i18n-cli，可能会因为依赖版本冲突的问题导致转换失败，这种情况下可以下载 github 上的仓库代码，配置 i18n.config.js 后，将需要翻译的文件夹拷贝到仓库下，然后执行 npm run sync**
 
 ## 使用
 
@@ -47,6 +46,7 @@ npx i18n-cli init
 | localPath           | String | 语言存放位置                                                       | src/locales                  |
 | langs               | Array  | 需要翻译的语言列表                                                 | ['en-US']                    |
 | keyPrefix           | String | 生成翻译 key 时候的默认前缀                                        | -                            |
+| keygenStrategy      | String | 生成翻译 key 的算法，可选值为 random 或不填，更多算法等待后面扩充  | -                            |
 | i18nImport          | String | 引入 i18n                                                          | import { i18n } from 'i18n'; |
 | i18nObject          | String | i18n 对象                                                          | i18n                         |
 | i18nMethod          | String | i18n 方法                                                          | t                            |
@@ -65,7 +65,7 @@ npx i18n-cli init
 | -------- | -------- |
 | 简体中文 | zh-CN    |
 | 繁体中文 | zh-TW    |
-| 英语 | en-US    |
+| 英语     | en-US    |
 | 日语     | ja-JP    |
 | 西班牙   | es-ES    |
 | 俄语     | ru-RU    |
@@ -142,7 +142,7 @@ export default Vue.extend({
 
 - [x] 处理在转换 html 的时候，大写的标签会自动转换为小写
 
-- [x] html里面标签转换错误，`<datasetDetailsDialog></datasetDetailsDialog>`
+- [x] html 里面标签转换错误，`<datasetDetailsDialog></datasetDetailsDialog>`
 
 - [x] 已经转换的代码，不需要再次转换
 
@@ -161,4 +161,3 @@ export default Vue.extend({
 - [x] form 里面的规则报错，:rules="{ required: true, message: '请输入名称', trigger: 'blur' }"
 
 - [x] ts 里面强制类型转换`const arrs = <any>[]arr`
-
