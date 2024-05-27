@@ -38,26 +38,27 @@ npx i18n-cli init
 
 ### 4、配置 i18n.config.js
 
-| 名称                | 类型   | 说明                                                               | 默认值                       |
-| ------------------- | ------ | ------------------------------------------------------------------ | ---------------------------- |
-| entry               | Array  | 入口                                                               | src                          |
-| exclude             | Array  | 排除文件夹：'src/exclude/\*\*'，排除文件：'src/exclude/\*\*/\*.js' | []                           |
-| local               | String | 本地语言                                                           | zh-CN                        |
-| localPath           | String | 语言存放位置                                                       | src/locales                  |
-| langs               | Array  | 需要翻译的语言列表                                                 | ['en-US']                    |
-| keyPrefix           | String | 生成翻译 key 时候的默认前缀                                        | -                            |
-| keygenStrategy      | String | 生成翻译 key 的算法，可选值为 random 或不填，更多算法等待后面扩充  | -                            |
-| i18nImport          | String | 引入 i18n                                                          | import { i18n } from 'i18n'; |
-| i18nObject          | String | i18n 对象                                                          | i18n                         |
-| i18nMethod          | String | i18n 方法                                                          | t                            |
-| ignoreText          | String | 注释，如// i18n-disable，则注释所在行的中文不会被翻译              | i18n-disable                 |
-| ignoreMethods       | Array  | 需要被忽略的方法，例如 console.log                                 | []                           |
-| ignoreAttributes    | Array  | 需要被忽略的属性，例如标签上的 id、name 等属性                     | []                           |
-| translate           | Object | 翻译配置对象                                                       | -                            |
-| translate.type      | String | 翻译的类型，baidu、youdao、google                                  | -                            |
-| translate.appId     | String | 翻译 appId                                                         | -                            |
-| translate.secretKey | String | 翻译 secretKey                                                     | -                            |
-| translate.interval  | Number | 翻译接口调用间隔，防止太频繁                                       | 1000                         |
+| 名称                | 类型    | 说明                                                               | 默认值                       |
+| ------------------- | ------- | ------------------------------------------------------------------ | ---------------------------- |
+| entry               | Array   | 入口                                                               | src                          |
+| exclude             | Array   | 排除文件夹：'src/exclude/\*\*'，排除文件：'src/exclude/\*\*/\*.js' | []                           |
+| local               | String  | 本地语言                                                           | zh-CN                        |
+| localPath           | String  | 语言存放位置                                                       | src/locales                  |
+| langs               | Array   | 需要翻译的语言列表                                                 | ['en-US']                    |
+| keyPrefix           | String  | 生成翻译 key 时候的默认前缀                                        | -                            |
+| keygenStrategy      | String  | 生成翻译 key 的算法，可选值为 random 或不填，更多算法等待后面扩充  | -                            |
+| keyShowOrigin       | Boolean | 生成的 key 后面是否显示中文，格式为 i18n.t('test', '测试')         | false                        |
+| i18nImport          | String  | 引入 i18n                                                          | import { i18n } from 'i18n'; |
+| i18nObject          | String  | i18n 对象                                                          | i18n                         |
+| i18nMethod          | String  | i18n 方法                                                          | t                            |
+| ignoreText          | String  | 注释，如// i18n-disable，则注释所在行的中文不会被翻译              | i18n-disable                 |
+| ignoreMethods       | Array   | 需要被忽略的方法，例如 console.log                                 | []                           |
+| ignoreAttributes    | Array   | 需要被忽略的属性，例如标签上的 id、name 等属性                     | []                           |
+| translate           | Object  | 翻译配置对象                                                       | -                            |
+| translate.type      | String  | 翻译的类型，baidu、youdao、google                                  | -                            |
+| translate.appId     | String  | 翻译 appId                                                         | -                            |
+| translate.secretKey | String  | 翻译 secretKey                                                     | -                            |
+| translate.interval  | Number  | 翻译接口调用间隔，防止太频繁                                       | 1000                         |
 
 语言 key 映射：
 
