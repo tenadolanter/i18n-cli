@@ -27,6 +27,7 @@
     "sync": "node ./bin/i18n-cli sync",
     "extract": "node ./bin/i18n-cli extract",
     "translate": "node ./bin/i18n-cli translate",
+    "prettier": "npx prettier --write .",
     "test": "mocha --recursive"
   },
   "repository": {
