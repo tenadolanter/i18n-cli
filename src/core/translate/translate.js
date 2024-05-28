@@ -8,15 +8,13 @@ const youdaoTranslate = require("./youdao.js");
  * @param { String } lang - 需要翻译成的语言
  * @param { Object } options - 翻译的配置，私钥等
  *
-*/
+ */
 module.exports = async (type, text, lang, options) => {
-  if(type === "baidu") {
+  if (type === "baidu") {
     return baiduTranslate(text, lang, options);
-  }
-  else if(type === "google"){
+  } else if (type === "google") {
     return googleTranslate(text, lang, options);
-  }
-  else if(type === "youdao"){
+  } else if (type === "youdao") {
     return youdaoTranslate(text, lang, options);
   }
-}
+};

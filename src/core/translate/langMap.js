@@ -59,7 +59,7 @@ const langMap = {
     // 日语
     "ja-JP": "ja",
   },
-}
+};
 
 module.exports = (type, lang) => {
   return langMap?.[type]?.[lang];

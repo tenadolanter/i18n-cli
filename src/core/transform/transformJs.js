@@ -10,14 +10,22 @@ const PluginSyntaxAsyncGenerators = require("@babel/plugin-syntax-async-generato
 const PluginSyntaxDoExpressions = require("@babel/plugin-syntax-do-expressions");
 const PluginSyntaxDynamicImport = require("@babel/plugin-syntax-dynamic-import");
 const PluginSyntaxFunctionBind = require("@babel/plugin-syntax-function-bind");
-const I18nPlugin = require("./i18nPlugin.js")
+const I18nPlugin = require("./i18nPlugin.js");
 
-module.exports = (localData, needTranslate, filePath, sourceCode, options, isWritingFile = true, isVue = false) => {
+module.exports = (
+  localData,
+  needTranslate,
+  filePath,
+  sourceCode,
+  options,
+  isWritingFile = true,
+  isVue = false
+) => {
   // 转换成ast
   const { babelPresets = [], babelPlugins = [] } = options;
   options.hasTransform = false;
-  const ast = parseSync(sourceCode,{
-    sourceType: 'module',
+  const ast = parseSync(sourceCode, {
+    sourceType: "module",
     ast: true,
     configFile: false,
     presets: babelPresets,
@@ -33,7 +41,7 @@ module.exports = (localData, needTranslate, filePath, sourceCode, options, isWri
       PluginSyntaxFunctionBind,
       ...babelPlugins,
     ],
-  })
+  });
 
   const { code } = transformFromAstSync(ast, sourceCode, {
     configFile: false,
@@ -45,20 +53,20 @@ module.exports = (localData, needTranslate, filePath, sourceCode, options, isWri
           needTranslate,
           options,
           isVue,
-        }
-      ]
-    ]
-  })
+        },
+      ],
+    ],
+  });
 
   // 代码填回
-  if(isWritingFile) {
-    if(options.hasTransform) {
-      fs.writeFileSync(filePath, code, { encoding: 'utf-8' }, err => {
-        if(err) {
+  if (isWritingFile) {
+    if (options.hasTransform) {
+      fs.writeFileSync(filePath, code, { encoding: "utf-8" }, (err) => {
+        if (err) {
           console.log(chalk.red(err));
           process.exit(2);
         }
-      })
+      });
     }
   } else {
     return {
@@ -66,4 +74,4 @@ module.exports = (localData, needTranslate, filePath, sourceCode, options, isWri
       hasTransform: options.hasTransform,
     };
   }
-}
+};

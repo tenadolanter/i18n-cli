@@ -1,5 +1,5 @@
 // 默认的配置详情
-module.exports =  {
+module.exports = {
   entry: ["src"],
   exclude: [],
   local: "zh-CN",
@@ -12,5 +12,5 @@ module.exports =  {
   translate: null,
   ignoreText: "i18n-disable",
   ignoreMethods: [],
-  ignoreAttributes: ['style', 'class', 'script'],
-}
+  ignoreAttributes: ["style", "class", "script"],
+};

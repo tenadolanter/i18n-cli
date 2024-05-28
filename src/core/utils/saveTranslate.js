@@ -8,14 +8,14 @@ const cwd = process.cwd();
  * @param { String }  key - 语言的key
  * @param { Object }  needTranslate - 需要合并的翻译对象
  *
-*/
-module.exports = (options, lang, needTranslate) =>  {
+ */
+module.exports = (options, lang, needTranslate) => {
   const localPath = options.localPath;
-  const fileName = `${lang}.json`
+  const fileName = `${lang}.json`;
   const configPath = path.join(cwd, localPath, fileName);
   if (!fs.existsSync(configPath)) {
-    fs.writeFileSync(configPath, JSON.stringify({}), err => {
-      if(err) {
+    fs.writeFileSync(configPath, JSON.stringify({}), (err) => {
+      if (err) {
         console.log(chalk.red(err));
         process.exit(2);
       }
@@ -25,18 +25,18 @@ module.exports = (options, lang, needTranslate) =>  {
   try {
     const content = fs.readFileSync(configPath);
     data = content.length > 0 ? JSON.parse(content) : {};
-  } catch(err){
+  } catch (err) {
     console.log(chalk.red(`请检查 ${configPath} 资源文件 JSON 格式是否正确`));
     process.exit(2);
   }
   data = {
     ...data,
     ...needTranslate,
-  }
-  fs.writeFileSync(configPath, JSON.stringify(data, null, 2), err => {
-    if(err) {
+  };
+  fs.writeFileSync(configPath, JSON.stringify(data, null, 2), (err) => {
+    if (err) {
       console.log(chalk.red(err));
       process.exit(2);
     }
   });
-}
+};

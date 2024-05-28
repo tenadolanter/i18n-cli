@@ -11,20 +11,22 @@ const cwd = process.cwd();
  * @param { Object } file - 需要被处理的文件
  * @param { Object } options - 配置
  *
-*/
+ */
 module.exports = (localData, needTranslate, file, options) => {
   const ext = file.ext;
-  if(ext === ".vue"){
+  if (ext === ".vue") {
     transformVue(localData, needTranslate, file, options);
-  }
-  else if(['.ts', '.tsx'].includes(ext)){
+  } else if ([".ts", ".tsx"].includes(ext)) {
     const filePath = file.filePath;
-    const sourceCode = fs.readFileSync(path.join(cwd, filePath), { encoding: "utf8"});
+    const sourceCode = fs.readFileSync(path.join(cwd, filePath), {
+      encoding: "utf8",
+    });
     transformTs(localData, needTranslate, filePath, sourceCode, options, true);
-  }
-  else {
+  } else {
     const filePath = file.filePath;
-    const sourceCode = fs.readFileSync(path.join(cwd, filePath), { encoding: "utf8"});
+    const sourceCode = fs.readFileSync(path.join(cwd, filePath), {
+      encoding: "utf8",
+    });
     transformJs(localData, needTranslate, filePath, sourceCode, options, true);
   }
-}
+};
