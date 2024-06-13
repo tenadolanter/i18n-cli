@@ -7,8 +7,11 @@ describe("再次转换", () => {
     let sourceCode = `<Test :name="$t('ce-shi')">{{$t('ce-shi')}}</Test>`;
     const option = {
       ...defaultOption,
+      isWritingFile: false,
+      isVueTemplate: true,
+      isTsx: false,
     }
-    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option);
     sourceCode = code
     const resultCode = `<Test :name="$t('ce-shi')">{{$t('ce-shi')}}</Test>`;
     assert.equal(sourceCode, resultCode);

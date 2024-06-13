@@ -8,8 +8,11 @@ describe("配置里的ignoreMethods属性", () => {
     const option = {
       ...defaultOption,
       ignoreMethods: ['console.log'],
+      isWritingFile: false,
+      isVueTemplate: true,
+      isTsx: false,
     }
-    const { code } =  transformJs({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformJs({}, {}, '', sourceCode, option);
     sourceCode = code
     const resultCode = `console.log("测试");`;
     assert.equal(sourceCode, resultCode);

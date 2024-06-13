@@ -71,7 +71,11 @@ module.exports = (localData, needTranslate, file, options) => {
                 needTranslate,
                 "",
                 fullText,
-                options,
+                {
+                  ...options,
+                  isWritingFile: false,
+                  isVueTemplate: true,
+                },
                 false,
                 true
               );
@@ -91,35 +95,25 @@ module.exports = (localData, needTranslate, file, options) => {
           } else if (name === "script") {
             let result;
             if (lastAttrs.lang === "ts") {
-              result = transformTs(
-                localData,
-                needTranslate,
-                "",
-                fullText,
-                options,
-                false,
-                true
-              );
+              result = transformTs(localData, needTranslate, "", fullText, {
+                ...options,
+                isWritingFile: false,
+                isVueTemplate: false,
+                isTsx: false,
+              });
             } else if (lastAttrs.lang === "tsx") {
-              result = transformTs(
-                localData,
-                needTranslate,
-                "",
-                fullText,
-                options,
-                false,
-                true
-              );
+              result = transformTs(localData, needTranslate, "", fullText, {
+                ...options,
+                isWritingFile: false,
+                isVueTemplate: false,
+                isTsx: true,
+              });
             } else {
-              result = transformJs(
-                localData,
-                needTranslate,
-                "",
-                fullText,
-                options,
-                false,
-                false
-              );
+              result = transformJs(localData, needTranslate, "", fullText, {
+                ...options,
+                isWritingFile: false,
+                isVueTemplate: false,
+              });
             }
             const { code, hasTransform } = result ?? {};
             let tempCode = code;

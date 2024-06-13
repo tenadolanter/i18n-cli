@@ -1,8 +1,8 @@
 module.exports = {
-  entry: ["example/this-transform"],
+  entry: ["example/ts-force-conversion"],
   exclude: [],
   local: "zh-CN",
-  localPath: "./example/this-transform/locales",
+  localPath: "./example/ts-force-conversion/locales",
   langs: ["en-US"],
   keyPrefix: "testKeyPrefix.",
   i18nImport: "import { t } from 'i18n';",

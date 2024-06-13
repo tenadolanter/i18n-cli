@@ -7,8 +7,11 @@ describe("html的Form和FormItem标签转换", () => {
     let sourceCode = '<Form><FormItem>你好</FormItem></Form>';
     const option = {
       ...defaultOption,
+      isWritingFile: false,
+      isVueTemplate: true,
+      isTsx: false,
     }
-    const { code } = transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } = transformHtml({}, {}, '', sourceCode, option);
     sourceCode = code
     const resultCode = "<Form><FormItem>{{$t('ni-hao')}}</FormItem></Form>";
     assert.equal(sourceCode, resultCode);

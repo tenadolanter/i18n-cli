@@ -16,17 +16,36 @@ module.exports = (localData, needTranslate, file, options) => {
   const ext = file.ext;
   if (ext === ".vue") {
     transformVue(localData, needTranslate, file, options);
-  } else if ([".ts", ".tsx"].includes(ext)) {
+  } else if ([".ts"].includes(ext)) {
     const filePath = file.filePath;
     const sourceCode = fs.readFileSync(path.join(cwd, filePath), {
       encoding: "utf8",
     });
-    transformTs(localData, needTranslate, filePath, sourceCode, options, true);
+    transformTs(localData, needTranslate, filePath, sourceCode, {
+      ...options,
+      isWritingFile: true,
+      isVueTemplate: false,
+      isTsx: false,
+    });
+  } else if ([".tsx"].includes(ext)) {
+    const filePath = file.filePath;
+    const sourceCode = fs.readFileSync(path.join(cwd, filePath), {
+      encoding: "utf8",
+    });
+    transformTs(localData, needTranslate, filePath, sourceCode, {
+      ...options,
+      isWritingFile: true,
+      isVueTemplate: false,
+      isTsx: true,
+    });
   } else {
     const filePath = file.filePath;
     const sourceCode = fs.readFileSync(path.join(cwd, filePath), {
       encoding: "utf8",
     });
-    transformJs(localData, needTranslate, filePath, sourceCode, options, true);
+    transformJs(localData, needTranslate, filePath, sourceCode, {
+      ...options,
+      isWritingFile: true,
+    });
   }
 };

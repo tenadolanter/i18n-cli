@@ -7,8 +7,11 @@ describe("html大写标签", () => {
     let sourceCode = '<Test></Test>';
     const option = {
       ...defaultOption,
+      isWritingFile: false,
+      isVueTemplate: true,
+      isTsx: false,
     }
-    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option);
     sourceCode = code
     const resultCode = '<Test></Test>';
     assert.equal(sourceCode, resultCode);

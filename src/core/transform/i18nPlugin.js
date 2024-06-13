@@ -5,7 +5,7 @@ const generateKey = require("../utils/generateKey.js");
 const regex = require("../utils/regex.js");
 module.exports = declare((api, options) => {
   api.assertVersion(7);
-  const { localData, needTranslate, isVue } = options;
+  const { localData, needTranslate } = options;
   const {
     i18nObject,
     i18nImport,
@@ -14,12 +14,13 @@ module.exports = declare((api, options) => {
     needImport = true,
     ignoreText,
     ignoreMethods,
+    isVueTemplate,
   } = options.options;
   const replaceExp = (api, path, value, label) => {
     const expressionParams = path.isTemplateLiteral()
       ? path.node.expressions.map((item) => generate(item).code)
       : null;
-    const methodName = isVue
+    const methodName = isVueTemplate
       ? `$${i18nMethod}`
       : i18nObject
       ? `${i18nObject}.${i18nMethod}`
@@ -37,6 +38,23 @@ module.exports = declare((api, options) => {
       replaceExpression = api.types.JSXExpressionContainer(replaceExpression);
     }
     return replaceExpression;
+  };
+  const replaceJsx = (api, path, value, label) => {
+    const expressionParams = path.isTemplateLiteral()
+      ? path.node.expressions.map((item) => generate(item).code)
+      : null;
+    const methodName = isVueTemplate
+      ? `$${i18nMethod}`
+      : i18nObject
+      ? `${i18nObject}.${i18nMethod}`
+      : i18nMethod;
+    let replaceExpression = api.template.ast(
+      `${methodName}('${value}'${
+        expressionParams ? "," + "[" + expressionParams.join(",") + "]" : ""
+      }${keyShowOrigin ? ",'" + label + "'" : ""}
+      )`
+    ).expression;
+    return api.types.JSXExpressionContainer(replaceExpression);
   };
   const cacheKeyFunc = (key, value) => {
     if (!localData[key]) {
@@ -105,7 +123,7 @@ module.exports = declare((api, options) => {
           const key = generateKey(label, options.options);
           cacheKeyFunc(key, label);
           const t = api.types;
-          const methodName = isVue
+          const methodName = isVueTemplate
             ? `$${i18nMethod}`
             : `${i18nObject}.${i18nMethod}`;
           const callExpression = t.callExpression(t.identifier(methodName), [
@@ -169,7 +187,7 @@ module.exports = declare((api, options) => {
           object = {},
           property = {},
         } = path.node.callee ?? {};
-        const methodName = isVue ? `$${i18nMethod}` : i18nMethod;
+        const methodName = isVueTemplate ? `$${i18nMethod}` : i18nMethod;
         // 如果是已经翻译的
         if (type === "Identifier" && name === methodName) {
           path.skip();
@@ -205,14 +223,17 @@ module.exports = declare((api, options) => {
           state.shouldImport = true;
         }
       },
-      JSXElement(path, state) {
-        if (path.node.skipTransform) return;
-      },
       JSXText(path, state) {
         if (path.node.skipTransform) return;
-      },
-      JSXAttribute(path, state) {
-        if (path.node.skipTransform) return;
+        const label = path?.node?.value?.trim();
+        if (isChinese(label)) {
+          const key = generateKey(label, options.options);
+          cacheKeyFunc(key, label);
+          const expression = replaceJsx(api, path, key, label);
+          path.replaceWith(expression);
+          path.skip();
+          state.shouldImport = true;
+        }
       },
     },
   };

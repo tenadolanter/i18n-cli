@@ -6,7 +6,13 @@
   "configurations": [
     {
       "command": "npm run sync",
-      "name": "Run npm start",
+      "name": "Run npm sync",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
+      "command": "npm run test",
+      "name": "Run npm test",
       "request": "launch",
       "type": "node-terminal"
     }

@@ -9,15 +9,7 @@ const isChinese = require("../utils/isChinese.js");
 const generateKey = require("../utils/generateKey.js");
 const regex = require("../utils/regex.js");
 const transformJs = require("./transformJs.js");
-module.exports = (
-  localData,
-  needTranslate,
-  filePath,
-  sourceCode,
-  options,
-  isWritingFile = true,
-  isVue = false
-) => {
+module.exports = (localData, needTranslate, filePath, sourceCode, options) => {
   const { ignoreText, ignoreAttributes, keyShowOrigin } = options ?? {};
   const vueTemplateLabelPrefix = "autoi18nprefix";
   const vueTemplateLabelSuffix = "autoi18nsuffix";
@@ -148,9 +140,7 @@ module.exports = (
         needTranslate,
         "",
         sourceCode,
-        { ...options, needImport: false },
-        false,
-        isVue
+        { ...options, needImport: false, isWritingFile: false }
       );
       // 如果是;结尾，则删除
       if (code.endsWith(";")) {
@@ -205,7 +195,9 @@ module.exports = (
           } else {
             const key = generateKey(value, options);
             cacheKeyFunc(key, value);
-            const methodName = isVue ? `$${i18nMethod}` : i18nMethod;
+            const methodName = options.isVueTemplate
+              ? `$${i18nMethod}`
+              : i18nMethod;
             attr.value = `${methodName}('${key}'${
               keyShowOrigin ? ",'" + value + "'" : ""
             })`;
@@ -236,7 +228,9 @@ module.exports = (
               const text = tokenText.trim();
               const key = generateKey(text, options);
               cacheKeyFunc(key, text);
-              const methodName = isVue ? `$${i18nMethod}` : i18nMethod;
+              const methodName = options.isVueTemplate
+                ? `$${i18nMethod}`
+                : i18nMethod;
               value += `{{${methodName}('${key}'${
                 keyShowOrigin ? ",'" + text + "'" : ""
               })}}`;
@@ -305,7 +299,7 @@ module.exports = (
   code = toPascal(code);
   code = toEscapeHtml(code);
   // 代码填回
-  if (isWritingFile) {
+  if (options.isWritingFile) {
     if (options.hasTransform) {
       fs.writeFileSync(filePath, code, { encoding: "utf-8" }, (err) => {
         if (err) {

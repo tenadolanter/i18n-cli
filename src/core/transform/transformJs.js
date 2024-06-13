@@ -12,15 +12,7 @@ const PluginSyntaxDynamicImport = require("@babel/plugin-syntax-dynamic-import")
 const PluginSyntaxFunctionBind = require("@babel/plugin-syntax-function-bind");
 const I18nPlugin = require("./i18nPlugin.js");
 
-module.exports = (
-  localData,
-  needTranslate,
-  filePath,
-  sourceCode,
-  options,
-  isWritingFile = true,
-  isVue = false
-) => {
+module.exports = (localData, needTranslate, filePath, sourceCode, options) => {
   // 转换成ast
   const { babelPresets = [], babelPlugins = [] } = options;
   options.hasTransform = false;
@@ -52,14 +44,13 @@ module.exports = (
           localData,
           needTranslate,
           options,
-          isVue,
         },
       ],
     ],
   });
 
   // 代码填回
-  if (isWritingFile) {
+  if (options.isWritingFile) {
     if (options.hasTransform) {
       fs.writeFileSync(filePath, code, { encoding: "utf-8" }, (err) => {
         if (err) {

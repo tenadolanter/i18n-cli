@@ -7,9 +7,12 @@ describe("html的id属性", () => {
     let sourceCode = '<Test id="你好"></Test>';
     const option = {
       ...defaultOption,
-      ignoreAttributes: [...defaultOption.ignoreAttributes, "id"]
+      ignoreAttributes: [...defaultOption.ignoreAttributes, "id"],
+      isWritingFile: false,
+      isVueTemplate: true,
+      isTsx: false,
     }
-    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option);
     sourceCode = code
     const resultCode = '<Test id="你好"></Test>';
     assert.equal(sourceCode, resultCode);
@@ -18,8 +21,11 @@ describe("html的id属性", () => {
     let sourceCode = '<Test id="你好"></Test>';
     const option = {
       ...defaultOption,
+      isWritingFile: false,
+      isVueTemplate: true,
+      isTsx: false,
     }
-    const { code } =  transformHtml({}, {}, '', sourceCode, option, false, true);
+    const { code } =  transformHtml({}, {}, '', sourceCode, option);
     sourceCode = code
     const resultCode = `<Test :id="$t('ni-hao')"></Test>`;
     assert.equal(sourceCode, resultCode);
