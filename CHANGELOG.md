@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.1 (2024-06-14)
+
+
+### Bug Fixes
+
+* 修复jsx语法转换错误 ([06b427b](https://github.com/tenadolanter/i18n-cli/commit/06b427bec80f5238ead3e899bcce1184c798683b))
+
 ## 1.4.0 (2024-05-27)
 
 
