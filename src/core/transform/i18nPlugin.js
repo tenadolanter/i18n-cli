@@ -157,8 +157,33 @@ module.exports = declare((api, options) => {
       TemplateLiteral(path, state) {
         if (path.node.skipTransform) return;
         let index = 0;
-        const label = path
-          .get("quasis")
+        // 处理quasis转换为变量bug，quasis表示变量两边的内容
+        // 如${a1}a${a2}${a3}${a4}b => 在变量两边存在5个quasis位置
+        // 如a${a2}b => 在变量两边存在2个quasis位置
+        // 如果存在连续的空quasis，则在非空的quasis之前添加一个空quasis
+        const quasis = path.get("quasis");
+        const newQuasis = [];
+        let lastQuasis = null;
+        let isContinueEmptyQuasis = false;
+        quasis.forEach((item, index) => {
+          if (!!item.node.value.raw) {
+            if (isContinueEmptyQuasis) {
+              newQuasis.push(quasis[index - 1]);
+            }
+            newQuasis.push(item);
+            lastQuasis = item;
+            isContinueEmptyQuasis = false;
+          } else {
+            if (!lastQuasis?.node?.value?.raw && lastQuasis !== null) {
+              isContinueEmptyQuasis = true;
+            } else {
+              isContinueEmptyQuasis = false;
+            }
+            newQuasis.push(item);
+            lastQuasis = item;
+          }
+        });
+        const label = newQuasis
           .map((item) => {
             if (!!item.node.value.raw) {
               return item.node.value.raw;

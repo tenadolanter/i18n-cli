@@ -4,10 +4,6 @@ i18n-cli 是一个自动国际化脚本，通过执行命令，自动提取代�
 
 支持 vue 语法，支持 jsx 语法，，支持 html 语法，i18n-cli 是一个和库无关的国际化脚本。
 
-## 特别提示
-
-提示：**以脚手架的形式安装 i18n-cli，可能会因为依赖版本冲突的问题导致转换失败，这种情况下可以下载 github 上的仓库代码，配置 i18n.config.js 后，将需要翻译的文件夹拷贝到仓库下，然后执行 npm run sync**
-
 ## 使用
 
 ### 0、环境
@@ -162,3 +158,7 @@ export default Vue.extend({
 - [x] form 里面的规则报错，:rules="{ required: true, message: '请输入名称', trigger: 'blur' }"
 
 - [x] ts 里面强制类型转换`const arrs = <any>[]arr`
+
+## 特别提示
+
+提示：**以脚手架的形式安装 i18n-cli，可能会因为依赖版本冲突的问题导致转换失败，这种情况下可以下载 github 上的仓库代码，配置 i18n.config.js 后，将需要翻译的文件夹拷贝到仓库下，然后执行 npm run sync**
