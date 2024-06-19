@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.2 (2024-06-19)
+
+
+### Bug Fixes
+
+* 修复模板字面量翻译bug ([8e73719](https://github.com/tenadolanter/i18n-cli/commit/8e73719d9b5e07bb8a30200f3e6314a391c9d3b7))
+
 ### 1.4.1 (2024-06-14)
 
 
