@@ -13,7 +13,12 @@
     "globalization",
     "languages",
     "vue",
-    "react"
+    "react",
+    "多语言",
+    "本地化",
+    "全球化",
+    "国际化",
+    "翻译"
   ],
   "files": [
     "bin",
