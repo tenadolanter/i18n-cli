@@ -80,4 +80,17 @@ describe("html大写属性", () => {
     const resultCode = '<test Name="test" sex="nan"></test>';
     assert.equal(sourceCode, resultCode);
   })
+  it("标签为小写，属性为特殊的大写", () => {
+    let sourceCode = '<test :textName.sync="test"></test>';
+    const option = {
+      ...defaultOption,
+      isWritingFile: false,
+      isVueTemplate: true,
+      isTsx: false,
+    }
+    const { code } =  transformHtml({}, {}, '', sourceCode, option);
+    sourceCode = code
+    const resultCode = '<test :textName.sync="test"></test>';
+    assert.equal(sourceCode, resultCode);
+  })
 })
