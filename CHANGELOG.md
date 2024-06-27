@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.4 (2024-06-27)
+
+
+### Bug Fixes
+
+* 调整正则，使支持html标签里面的:textName.sync格式属性 ([6f3c766](https://github.com/tenadolanter/i18n-cli/commit/6f3c7667a4b30e84c2e7b58a1bda2eec9d2a0fc5))
+
 ### 1.4.3 (2024-06-26)
 
 ### 1.4.2 (2024-06-19)
