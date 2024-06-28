@@ -106,6 +106,7 @@ module.exports = (localData, needTranslate, file, options) => {
                 ...options,
                 isWritingFile: false,
                 isVueTemplate: false,
+                isVueScript: true,
                 isTsx: true,
               });
             } else {
@@ -113,6 +114,7 @@ module.exports = (localData, needTranslate, file, options) => {
                 ...options,
                 isWritingFile: false,
                 isVueTemplate: false,
+                isVueScript: true,
               });
             }
             const { code, hasTransform } = result ?? {};

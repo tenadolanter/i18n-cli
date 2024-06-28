@@ -14,7 +14,7 @@ const I18nPlugin = require("./i18nPlugin.js");
 
 module.exports = (localData, needTranslate, filePath, sourceCode, options) => {
   // 转换成ast
-  const { babelPresets = [], babelPlugins = [] } = options;
+  const { babelPresets = [], babelPlugins = [], isVueScript = false } = options;
   options.hasTransform = false;
   const ast = parseSync(sourceCode, {
     sourceType: "module",
@@ -25,7 +25,10 @@ module.exports = (localData, needTranslate, filePath, sourceCode, options) => {
       PluginSyntaxJSX,
       PluginSyntaxProposalOptionalChaining,
       PluginSyntaxClassProperties,
-      [PluginSyntaxDecorators, { decoratorsBeforeExport: true }],
+      [
+        PluginSyntaxDecorators,
+        isVueScript ? { legacy: true } : { decoratorsBeforeExport: true },
+      ],
       PluginSyntaxObjectRestSpread,
       PluginSyntaxAsyncGenerators,
       PluginSyntaxDoExpressions,
