@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.5 (2024-06-28)
+
+
+### Bug Fixes
+
+* 修复vue的script里面装饰器装换失败的bug ([914a2fe](https://github.com/tenadolanter/i18n-cli/commit/914a2fe129dbeb4deeea6e689aee14e3b3294116))
+
 ### 1.4.4 (2024-06-27)
 
 
