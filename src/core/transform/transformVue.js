@@ -1,5 +1,4 @@
 const fs = require("fs");
-const path = require("path");
 const chalk = require("chalk");
 const cwd = process.cwd();
 const { Parser } = require("htmlparser2");
@@ -7,11 +6,7 @@ const transformHtml = require("./transformHtml.js");
 const transformJs = require("./transformJs.js");
 const transformTs = require("./transformTs.js");
 const regex = require("../utils/regex.js");
-module.exports = (localData, needTranslate, file, options) => {
-  const filePath = file.filePath;
-  const sourceCode = fs.readFileSync(path.join(cwd, filePath), {
-    encoding: "utf8",
-  });
+module.exports = (localData, needTranslate, filePath, sourceCode, options) => {
   // 转换vue代码，取出template和script进行转换
   let html = "";
   let lastIndex = null;
@@ -54,7 +49,7 @@ module.exports = (localData, needTranslate, file, options) => {
           const fullText = sourceCode.slice(lastIndex, parser.startIndex);
           if (name === "template") {
             // 如果template是0或偶数个，且`<template`个数和`</template`个数一样，则说明匹配结束
-            const matchs = fullText.match(regex.htmlTemplateTag) ?? [];
+            const matchs = fullText.match(regex.vueTemplateTag) ?? [];
             const matchLen = matchs?.length;
             const templateStarts = (
               fullText.match(regex.htmlTemplateStartTag) ?? []
@@ -146,11 +141,17 @@ module.exports = (localData, needTranslate, file, options) => {
   );
   parser.parseComplete(sourceCode);
 
-  // 代码填回
-  fs.writeFileSync(filePath, html, { encoding: "utf-8" }, (err) => {
-    if (err) {
-      console.log(chalk.red(err));
-      process.exit(2);
-    }
-  });
+  if (options.isWritingFile) {
+    fs.writeFileSync(filePath, html, { encoding: "utf-8" }, (err) => {
+      if (err) {
+        console.log(chalk.red(err));
+        process.exit(2);
+      }
+    });
+  } else {
+    return {
+      code: html,
+      hasTransform: options.hasTransform,
+    };
+  }
 };

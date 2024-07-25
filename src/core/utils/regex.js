@@ -26,6 +26,8 @@ module.exports = {
   htmlTemplateTag: /(<\/?)(template)/g,
   htmlTemplateStartTag: /(<template)/g,
   htmlTemplateEndTag: /(<\/template)/g,
+  // 匹配vue里的template标签
+  vueTemplateTag: /(<\/?)(template)(>)/g,
   // 匹配html闭和标签
   htmlTagAutoClose: /<\/?.+?>/g,
 };

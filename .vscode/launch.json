@@ -8,13 +8,15 @@
       "command": "npm run sync",
       "name": "Run npm sync",
       "request": "launch",
-      "type": "node-terminal"
+      "type": "node-terminal",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
     },
     {
       "command": "npm run test",
       "name": "Run npm test",
       "request": "launch",
-      "type": "node-terminal"
+      "type": "node-terminal",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
     }
   ]
 }

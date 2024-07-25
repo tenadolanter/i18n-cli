@@ -15,7 +15,16 @@ const cwd = process.cwd();
 module.exports = (localData, needTranslate, file, options) => {
   const ext = file.ext;
   if (ext === ".vue") {
-    transformVue(localData, needTranslate, file, options);
+    const filePath = file.filePath;
+    const sourceCode = fs.readFileSync(path.join(cwd, filePath), {
+      encoding: "utf8",
+    });
+    transformVue(localData, needTranslate, filePath, sourceCode, {
+      ...options,
+      isWritingFile: true,
+      isVueTemplate: false,
+      isTsx: false,
+    });
   } else if ([".ts"].includes(ext)) {
     const filePath = file.filePath;
     const sourceCode = fs.readFileSync(path.join(cwd, filePath), {

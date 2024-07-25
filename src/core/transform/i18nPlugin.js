@@ -102,6 +102,10 @@ module.exports = declare((api, options) => {
               if (path.findParent((p) => p.isImportDeclaration())) {
                 path.node.skipTransform = true;
               }
+              // 如果中文在类型声明里面，则跳过转换
+              if (path.parent.type === "TSLiteralType") {
+                path.node.skipTransform = true;
+              }
             },
           });
         },

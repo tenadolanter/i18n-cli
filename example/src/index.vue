@@ -3,7 +3,7 @@
     <div class="name">{{ name }}</div>
     <template>
       <div class="empty-image-wrap">
-        <img class="empty-image" :src="emptyImage">
+        <img class="empty-image" :src="emptyImage" />
       </div>
       <div class="empty-title">暂无数据</div>
     </template>
@@ -20,9 +20,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-.wrap {
-  color: #ff0000;
-}
-</style>

@@ -14,7 +14,7 @@ describe("react或vue里面的ts语法", () => {
     }
     const { code } = transformTs({}, {}, '', sourceCode, option);
     sourceCode = code
-    const resultCode = 'const getPerson = (person: Person) => {\n  return (<Person> {\n    name: "test"\n  });\n};';
+    const resultCode = 'const getPerson = (person: Person) => {\n  return <Person> {\n    name: "test"\n  };\n};';
     assert.equal(sourceCode, resultCode);
   })
   it("ts类型注解", () => {
