@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.7 (2024-07-26)
+
+
+### Bug Fixes
+
+* 修复转换vue里面的template报错 ([fe9f8bf](https://github.com/tenadolanter/i18n-cli/commit/fe9f8bfed3cb3bd3547a53197e8b76ef2359d50d))
+
 ### 1.4.6 (2024-07-26)
 
 
