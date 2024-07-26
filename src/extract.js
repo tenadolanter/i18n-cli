@@ -32,11 +32,13 @@ module.exports = (opts) => {
   targetFiles = getFilesFromFolder(options);
 
   // 3、转换文件
-  targetFiles.forEach((file) => {
-    transformCore(localData, needTranslate, file, options);
-    console.log(chalk.green(`${file.filePath}转换完成...`));
-  });
-
   // 4、将未翻译的存入local语言对应的json文件中
-  saveTranslate(options, localLang, needTranslate);
+  try {
+    targetFiles.forEach((file) => {
+      console.log(chalk.green(`开始转换${file.filePath}`));
+      transformCore(localData, needTranslate, file, options);
+    });
+  } finally {
+    saveTranslate(options, localLang, needTranslate);
+  }
 };
