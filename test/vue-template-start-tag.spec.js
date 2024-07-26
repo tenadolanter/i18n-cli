@@ -14,4 +14,15 @@ describe("vue的template里tag为template开始的标签", () => {
     const resultCode = `<template>\n  <template-set-select />\n</template><script lang="ts"></script>`;
     assert.equal(sourceCode, resultCode);
   })
+  it("被注释的template标签", () => {
+    let sourceCode = `<template>\n  <div><!-- <template slot-scope="scope"></template> --></div>\n</template><script lang="ts"></script>`;
+    const option = {
+      ...defaultOption,
+      isWritingFile: false,
+    }
+    const { code } =  transformVue({}, {}, '', sourceCode, option);
+    sourceCode = code
+    const resultCode = `<template>\n  <div><!-- <template slot-scope="scope"></template> --></div>\n</template><script lang="ts"></script>`;
+    assert.equal(sourceCode, resultCode);
+  })
 })

@@ -6,7 +6,7 @@ module.exports = {
   langs: ["en-US"],
   keyPrefix: "testKeyPrefix.",
   i18nImport: "import { t } from 'i18n';",
-  i18nObject: "",
+  i18nObject: "i18n",
   i18nMethod: "t",
   translate: {
     type: "baidu",
