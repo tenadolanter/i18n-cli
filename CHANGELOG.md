@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.6 (2024-07-26)
+
+
+### Bug Fixes
+
+* 修复ts类型声明中包含中文时报错问题,修复vue模板里面template开头标签解析报错问题 ([187247b](https://github.com/tenadolanter/i18n-cli/commit/187247bffd50f4a90f637a4e0d559ebed660c5b2))
+
 ### 1.4.5 (2024-06-28)
 
 
