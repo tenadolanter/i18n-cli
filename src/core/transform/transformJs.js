@@ -1,6 +1,8 @@
 const fs = require("fs");
 const chalk = require("chalk");
 const { parseSync, transformFromAstSync } = require("@babel/core");
+const PresetEnv = require("@babel/preset-env");
+
 const PluginSyntaxJSX = require("@babel/plugin-syntax-jsx");
 const PluginSyntaxProposalOptionalChaining = require("@babel/plugin-proposal-optional-chaining");
 const PluginSyntaxClassProperties = require("@babel/plugin-syntax-class-properties");
@@ -16,26 +18,28 @@ module.exports = (localData, needTranslate, filePath, sourceCode, options) => {
   // 转换成ast
   const { babelPresets = [], babelPlugins = [], isVueScript = false } = options;
   options.hasTransform = false;
+  const presets = [...babelPresets, PresetEnv];
+  const plugins = [
+    PluginSyntaxJSX,
+    PluginSyntaxProposalOptionalChaining,
+    PluginSyntaxClassProperties,
+    [
+      PluginSyntaxDecorators,
+      isVueScript ? { legacy: true } : { decoratorsBeforeExport: true },
+    ],
+    PluginSyntaxObjectRestSpread,
+    PluginSyntaxAsyncGenerators,
+    PluginSyntaxDoExpressions,
+    PluginSyntaxDynamicImport,
+    PluginSyntaxFunctionBind,
+    ...babelPlugins,
+  ];
   const ast = parseSync(sourceCode, {
     sourceType: "module",
     ast: true,
     configFile: false,
-    presets: babelPresets,
-    plugins: [
-      PluginSyntaxJSX,
-      PluginSyntaxProposalOptionalChaining,
-      PluginSyntaxClassProperties,
-      [
-        PluginSyntaxDecorators,
-        isVueScript ? { legacy: true } : { decoratorsBeforeExport: true },
-      ],
-      PluginSyntaxObjectRestSpread,
-      PluginSyntaxAsyncGenerators,
-      PluginSyntaxDoExpressions,
-      PluginSyntaxDynamicImport,
-      PluginSyntaxFunctionBind,
-      ...babelPlugins,
-    ],
+    presets: presets,
+    plugins: plugins,
   });
 
   const { code } = transformFromAstSync(ast, sourceCode, {
