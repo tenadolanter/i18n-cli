@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.4.8 (2024-11-22)
+
+
+### Bug Fixes
+
+* 修复ts的类型断言被当作jsx转换的bug ([d5752f7](https://github.com/tenadolanter/i18n-cli/commit/d5752f7a9c8c03ca164d6763756130d8b0ded666))
+
 ### 1.4.7 (2024-07-26)
 
 
