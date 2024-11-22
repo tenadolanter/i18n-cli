@@ -59,4 +59,18 @@ describe("react的jsx语法", () => {
     const resultCode = "const App = () => <Flex>{isName ? t('ni-hao') : t('ta-hao')}</Flex>;";
     assert.equal(sourceCode, resultCode);
   })
+  it("jsx里面条件节点的文本", () => {
+    let sourceCode = 'const App = () => <div>{true && <Input placeholder="你好"></Input>}</div>;';
+    const option = {
+      ...defaultOption,
+      needImport: false,
+      isWritingFile: false,
+      isVueTemplate: false,
+      isTsx: true,
+    }
+    const { code } = transformTs({}, {}, '', sourceCode, option);
+    sourceCode = code
+    const resultCode = "const App = () => <div>{true && <Input placeholder={t('ni-hao')}></Input>}</div>;";
+    assert.equal(sourceCode, resultCode);
+  })
 })

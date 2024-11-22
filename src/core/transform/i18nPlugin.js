@@ -264,6 +264,18 @@ module.exports = declare((api, options) => {
           state.shouldImport = true;
         }
       },
+      JSXAttribute(path, state) {
+        if (path.node.skipTransform) return;
+        const label = path.node.value.value;
+        if (isChinese(label)) {
+          const key = generateKey(label, options.options);
+          cacheKeyFunc(key, label);
+          const expression = replaceJsx(api, path, key, label);
+          path.node.value = expression;
+          path.skip();
+          state.shouldImport = true;
+        }
+      },
     },
   };
 });
