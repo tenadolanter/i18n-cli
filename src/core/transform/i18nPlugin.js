@@ -266,7 +266,7 @@ module.exports = declare((api, options) => {
       },
       JSXAttribute(path, state) {
         if (path.node.skipTransform) return;
-        const label = path.node.value.value;
+        const label = path.node.value?.value;
         if (isChinese(label)) {
           const key = generateKey(label, options.options);
           cacheKeyFunc(key, label);
