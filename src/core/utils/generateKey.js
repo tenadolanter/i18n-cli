@@ -11,6 +11,8 @@ module.exports = function generateKey(text, options) {
   // 生成随机字符串id
   if (keygenStrategy === "random") {
     result = nanoid();
+  } else if (keygenStrategy === "original") {
+    result = text;
   }
   // 转换
   // i ♥ latin > i-love-latin
