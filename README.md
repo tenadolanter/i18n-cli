@@ -42,7 +42,7 @@ npx i18n-cli init
 | localPath           | String  | 语言存放位置                                                       | src/locales                  |
 | langs               | Array   | 需要翻译的语言列表                                                 | ['en-US']                    |
 | keyPrefix           | String  | 生成翻译 key 时候的默认前缀                                        | -                            |
-| keygenStrategy      | String  | 生成翻译 key 的算法，可选值为 random 或不填，更多算法等待后面扩充  | -                            |
+| keygenStrategy      | String  | 生成翻译 key 的算法，可选值为 random、original 或不填，更多算法等待后面扩充  | -                            |
 | keyShowOrigin       | Boolean | 生成的 key 后面是否显示中文，格式为 i18n.t('test', '测试')         | false                        |
 | i18nImport          | String  | 引入 i18n                                                          | import { i18n } from 'i18n'; |
 | i18nObject          | String  | i18n 对象                                                          | i18n                         |
